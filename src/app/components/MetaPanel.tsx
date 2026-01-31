@@ -135,20 +135,12 @@ export default function MetaPanel({
                       <p className='text-xs font-semibold mb-2'>
                         Check out the source code:
                       </p>
-                      <div className='flex gap-2 w-full'>
-                        <Button variant="outline" className="flex-1 gap-2" asChild>
-                            <a href="#" target="_blank" rel="noopener noreferrer">
+                        <Button variant="outline" className="w-full" asChild>
+                            <a href="https://github.com/Benedikt-Gschmeidler/metro-thesis" target="_blank" rel="noopener noreferrer">
                                 <Github className="w-4 h-4" />
                                 GitHub
                             </a>
                         </Button>
-                        <Button variant="outline" className="flex-1 gap-2" asChild>
-                            <a href="#" target="_blank" rel="noopener noreferrer">
-                                <GitBranch className="w-4 h-4" />
-                                Codeberg
-                            </a>
-                        </Button>
-                      </div>
                     </div>
 
                     <div className='border-t pt-4 mt-2'>
