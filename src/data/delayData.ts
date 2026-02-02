@@ -7,7 +7,7 @@ export type OptimizedLocationData = {
 
 export type DatasetMap = Map<string, OptimizedLocationData>
 
-type RawJsonType = {
+export type RawJsonType = {
   nodeId: string
   line: string
   station: string
