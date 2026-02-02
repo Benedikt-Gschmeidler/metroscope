@@ -71,7 +71,7 @@ export default function InfoPanel({
     })
     observer.observe(containerRef.current)
     return () => observer.disconnect()
-  }, [])
+  }, [selectedLines.length > 1])
 
   useEffect(() => {
     if (!compactLayerRef.current) return
@@ -84,7 +84,7 @@ export default function InfoPanel({
     })
     observer.observe(compactLayerRef.current)
     return () => observer.disconnect()
-  }, [])
+  }, [selectedLines.length > 1])
 
   useEffect(() => {
     if (expandedLineId && !selectedLines.find((l) => l.id === expandedLineId)) {
