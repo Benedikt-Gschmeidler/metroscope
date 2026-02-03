@@ -11,7 +11,7 @@ export interface ToggleOption<T extends string> {
   value: T
   label: string
   icon: LucideIcon
-  tooltip: string
+  tooltip?: string
 }
 
 export interface ToggleGroupProps<T extends string> {
@@ -21,6 +21,7 @@ export interface ToggleGroupProps<T extends string> {
   options: ToggleOption<T>[]
   label: string
   labelIcon: LucideIcon
+  infoTooltip?: string
 }
 
 export function ToggleGroup<T extends string>({
@@ -30,6 +31,7 @@ export function ToggleGroup<T extends string>({
   options,
   label,
   labelIcon: LabelIcon,
+  infoTooltip,
 }: ToggleGroupProps<T>) {
   const selectedIndex = options.findIndex((opt) => opt.value === value)
 
@@ -42,7 +44,20 @@ export function ToggleGroup<T extends string>({
         )}
       >
         <LabelIcon className='h-3 w-3' />
-        {label}
+        {infoTooltip ? (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <span className='cursor-help underline decoration-dotted underline-offset-2 decoration-muted-foreground/50 hover:decoration-foreground/50 transition-all'>
+                {label}
+              </span>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{infoTooltip}</p>
+            </TooltipContent>
+          </Tooltip>
+        ) : (
+          label
+        )}
       </div>
       <div className='flex items-center bg-muted/50 rounded-lg border border-border/50 p-0.5 relative isolate overflow-hidden'>
         <div
@@ -61,37 +76,31 @@ export function ToggleGroup<T extends string>({
           const isSelected = value === opt.value
 
           return (
-            <Tooltip key={opt.value}>
-              <TooltipTrigger asChild>
-                <button
-                  onClick={() => {
-                    if (isExpanded) {
-                      onChange(opt.value)
-                    } else {
-                      const nextIndex = (selectedIndex + 1) % options.length
-                      onChange(options[nextIndex].value)
-                    }
-                  }}
-                  className={cn(
-                    'flex items-center justify-center font-medium rounded-md transition-all duration-500 text-xs gap-1.5 whitespace-nowrap overflow-hidden z-10',
-                    isSelected
-                      ? 'text-foreground'
-                      : 'text-muted-foreground hover:text-foreground',
-                    isExpanded
-                      ? 'flex-1 px-2 py-1.5'
-                      : isSelected
-                        ? 'w-full px-2 py-1.5'
-                        : 'w-0 px-0 py-0 opacity-0',
-                  )}
-                >
-                  <Icon className='h-3.5 w-3.5 shrink-0' />
-                  <span className='capitalize'>{opt.label}</span>
-                </button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{opt.tooltip}</p>
-              </TooltipContent>
-            </Tooltip>
+            <button
+              key={opt.value}
+              onClick={() => {
+                if (isExpanded) {
+                  onChange(opt.value)
+                } else {
+                  const nextIndex = (selectedIndex + 1) % options.length
+                  onChange(options[nextIndex].value)
+                }
+              }}
+              className={cn(
+                'flex items-center justify-center font-medium rounded-md transition-all duration-500 text-xs gap-1.5 whitespace-nowrap overflow-hidden z-10',
+                isSelected
+                  ? 'text-foreground'
+                  : 'text-muted-foreground hover:text-foreground',
+                isExpanded
+                  ? 'flex-1 px-2 py-1.5'
+                  : isSelected
+                    ? 'w-full px-2 py-1.5'
+                    : 'w-0 px-0 py-0 opacity-0',
+              )}
+            >
+              <Icon className='h-3.5 w-3.5 shrink-0' />
+              <span className='capitalize'>{opt.label}</span>
+            </button>
           )
         })}
       </div>

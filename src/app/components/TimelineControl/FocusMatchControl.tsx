@@ -24,6 +24,7 @@ export const FocusMatchControl = React.memo<FocusMatchControlProps>(
       options={FOCUS_MATCH_OPTIONS}
       label='Focus Match'
       labelIcon={ScanEye}
+      infoTooltip='Matches the timeline view to the map view'
     />
   ),
 )
