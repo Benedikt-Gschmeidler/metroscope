@@ -16,8 +16,13 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Metro Delay Visualization',
-  description: 'Using the metro metaphor to visualize train delays',
+  title: 'Metroscope',
+  description: 'Applying the Metro Map Metaphor to Visualize Train Delays',
+  icons: {
+    icon: '/metro-eye.svg',
+    shortcut: '/metro-eye.svg',
+    apple: '/metro-eye.svg',
+  },
 }
 
 export default function RootLayout({

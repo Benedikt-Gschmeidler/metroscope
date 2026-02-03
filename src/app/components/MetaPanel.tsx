@@ -6,7 +6,6 @@ import {
   Info,
   Scaling,
   Ruler,
-  TrainFront,
   RotateCcw,
   Github,
   GitBranch,
@@ -102,11 +101,11 @@ export default function MetaPanel({
         <div className='flex flex-col'>
           <div className='flex items-center justify-between p-3'>
             <div className='flex items-center gap-3'>
-              <div className='h-8 w-8 bg-primary/10 rounded-lg flex items-center justify-center text-primary shrink-0'>
-                <TrainFront className='h-5 w-5' />
+              <div className='h-8 w-8 rounded-lg flex items-center justify-center text-primary shrink-0'>
+                <img src="/metro-eye.svg" alt="Metroscope" className="h-full w-full" />
               </div>
               <span className='font-semibold text-sm tracking-tight whitespace-nowrap'>
-                Metro Delay
+                Metroscope
               </span>
             </div>
 
@@ -122,13 +121,11 @@ export default function MetaPanel({
                 </DialogTrigger>
                 <DialogContent className='sm:max-w-[425px]'>
                   <DialogHeader>
-                    <DialogTitle>Dutch Railways Metro Delay Map 2024</DialogTitle>
+                    <DialogTitle>Metroscope</DialogTitle>
                   </DialogHeader>
                   <div className='grid gap-4 py-4'>
                   <DialogDescription>
-                    Exploring the metro map metaphor on a dynamic network.
-                    Visualizing delays on the Dutch railway network throughout
-                    2024.
+                    Applying the Metro Map Metaphor to Visualize Train Delays on the Dutch Railway Network over the course of 2024.
                   </DialogDescription>
                     
                     <div className='pt-2'>
