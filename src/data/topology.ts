@@ -791,8 +791,8 @@ export const topology: Topology = {
       country: 'NL',
       xGeo: 466.972521710459,
       yGeo: 289.9541765375161,
-      xMetro: 480,
-      yMetro: 245,
+      xMetro: 460,
+      yMetro: 250,
     },
     {
       id: 'BKG',
@@ -800,8 +800,8 @@ export const topology: Topology = {
       country: 'NL',
       xGeo: 463.5451928370942,
       yGeo: 290.37269335649034,
-      xMetro: 460,
-      yMetro: 245,
+      xMetro: 450,
+      yMetro: 250,
     },
     {
       id: 'BMR',
@@ -1556,8 +1556,8 @@ export const topology: Topology = {
       country: 'NL',
       xGeo: 474.65238811940594,
       yGeo: 288.80212166739693,
-      xMetro: 495,
-      yMetro: 245,
+      xMetro: 470,
+      yMetro: 250,
     },
     {
       id: 'EENP',
@@ -2294,8 +2294,8 @@ export const topology: Topology = {
       country: 'NL',
       xGeo: 451.23210773789833,
       yGeo: 292.0480922563038,
-      xMetro: 450,
-      yMetro: 255,
+      xMetro: 440,
+      yMetro: 260,
     },
     {
       id: 'HN',
@@ -2303,7 +2303,7 @@ export const topology: Topology = {
       country: 'NL',
       xGeo: 421.90909040208066,
       yGeo: 309.3170518845036,
-      xMetro: 420,
+      xMetro: 415,
       yMetro: 270,
     },
     {
@@ -2312,8 +2312,8 @@ export const topology: Topology = {
       country: 'NL',
       xGeo: 428.7638571016405,
       yGeo: 305.9695969105378,
-      xMetro: 440,
-      yMetro: 265,
+      xMetro: 430,
+      yMetro: 270,
     },
     {
       id: 'HRT',
@@ -12104,32 +12104,20 @@ export const topology: Topology = {
         from: 'HNK',
         to: 'HN',
       },
-      midpoints: [
-        {
-          id: 'HNK-HN-0',
-          x: 435,
-          y: 270,
-          direction: 3,
-        },
-      ],
+      midpoints: [],
       tracks: [
         {
           id: 'HNK-HN-Enkhuizen - Hoorn',
           lineId: 'Enkhuizen - Hoorn',
           from: {
-            direction: 3,
+            direction: 2,
             slot: 0,
           },
           to: {
             direction: 6,
             slot: 0,
           },
-          midpointSlots: [
-            {
-              midpointId: 'HNK-HN-0',
-              slot: 0,
-            },
-          ],
+          midpointSlots: [],
         },
       ],
     },
@@ -15058,8 +15046,8 @@ export const topology: Topology = {
       midpoints: [
         {
           id: 'PMO-HN-0',
-          x: 420,
-          y: 300,
+          x: 415,
+          y: 305,
           direction: 7,
         },
       ],
