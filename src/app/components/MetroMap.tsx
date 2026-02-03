@@ -115,6 +115,7 @@ export default function MetroMap({ topology }: MetroMapProps) {
 
   const [baseLineThickness, setBaseLineThickness] = useState(0.7)
   const [delayCutoff, setDelayCutoff] = useState(8640)
+  const [shapeRendering, setShapeRendering] = useState<'geometricPrecision' | 'optimizeSpeed'>('geometricPrecision')
 
   const [mapViewBounds, setMapViewBounds] = useState<{
     minX: number
@@ -483,7 +484,7 @@ export default function MetroMap({ topology }: MetroMapProps) {
           onViewChange={handleMapViewChange}
           baseLineThickness={baseLineThickness}
           delayCutoff={effectiveDelayCutoff}
-
+          shapeRendering={shapeRendering}
         />
       </div>
 
@@ -497,7 +498,8 @@ export default function MetroMap({ topology }: MetroMapProps) {
               onBaseLineThicknessChange={setBaseLineThickness}
               delayCutoff={delayCutoff}
               onDelayCutoffChange={setDelayCutoff}
-
+              shapeRendering={shapeRendering}
+              onShapeRenderingChange={setShapeRendering}
             />
           </div>
 

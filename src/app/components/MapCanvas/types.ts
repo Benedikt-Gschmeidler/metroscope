@@ -28,6 +28,7 @@ export interface MapCanvasProps {
   baseLineThickness?: number
   delayCutoff: number
   onDragStart?: () => void
+  shapeRendering?: string
 }
 
 export interface LinesLayerProps {
