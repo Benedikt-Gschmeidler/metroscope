@@ -19,10 +19,9 @@ export const LinesLayer = memo(
     baseLineThickness,
     delayCutoff,
     isDraggingRef,
-    shapeRendering,
   }: LinesLayerProps) => {
     return (
-      <g style={{ pointerEvents: 'auto' }} shapeRendering={shapeRendering}>
+      <g style={{ pointerEvents: 'auto' }} shapeRendering='geometricPrecision'>
         {topology.lines.map((line: Line) => {
           const isPinned = pinnedLineIds.includes(line.id)
           const isHighlighted = highlightedLineIds.includes(line.id) || isPinned

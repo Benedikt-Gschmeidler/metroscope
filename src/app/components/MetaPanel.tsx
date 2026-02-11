@@ -8,7 +8,7 @@ import {
   Ruler,
   RotateCcw,
   Github,
-  Loader,
+
 
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -39,8 +39,6 @@ interface MetaPanelProps {
   onBaseLineThicknessChange: (val: number) => void
   delayCutoff: number
   onDelayCutoffChange: (val: number) => void
-  shapeRendering: 'geometricPrecision' | 'optimizeSpeed'
-  onShapeRenderingChange: (val: 'geometricPrecision' | 'optimizeSpeed') => void
 }
 
 const DEFAULT_BASE_THICKNESS = 0.5
@@ -63,8 +61,6 @@ export default function MetaPanel({
   onBaseLineThicknessChange,
   delayCutoff,
   onDelayCutoffChange,
-  shapeRendering,
-  onShapeRenderingChange,
 }: MetaPanelProps) {
   const [isExpanded, setIsExpanded] = React.useState(false)
 
@@ -239,50 +235,9 @@ export default function MetaPanel({
 
             <div className='h-px bg-border/50' />
 
-            <div className='space-y-2.5'>
-              <div className='text-[10px] font-medium text-muted-foreground uppercase tracking-wider flex items-center gap-1.5'>
-                <Loader className='h-3 w-3' />
-                Rendering Mode
-              </div>
-              <div className='flex items-center bg-muted/50 rounded-lg border border-border/50 p-0.5 relative isolate'>
-                <div
-                  className='absolute top-0.5 bottom-0.5 bg-background shadow-sm rounded-md transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] -z-10'
-                  style={{
-                    left: shapeRendering === 'geometricPrecision' ? '2px' : 'calc(50% + 1px)',
-                    width: 'calc(50% - 3px)',
-                  }}
-                />
-                <button
-                  onClick={() => onShapeRenderingChange('geometricPrecision')}
-                  className={cn(
-                    'flex-1 flex items-center justify-center py-1.5 text-xs font-medium rounded-md transition-colors z-10',
-                    shapeRendering === 'geometricPrecision'
-                      ? 'text-foreground'
-                      : 'text-muted-foreground hover:text-foreground',
-                  )}
-                >
-                  Precision
-                </button>
-                <button
-                  onClick={() => onShapeRenderingChange('optimizeSpeed')}
-                  className={cn(
-                    'flex-1 flex items-center justify-center py-1.5 text-xs font-medium rounded-md transition-colors z-10',
-                    shapeRendering !== 'geometricPrecision'
-                      ? 'text-foreground'
-                      : 'text-muted-foreground hover:text-foreground',
-                  )}
-                >
-                  Speed
-                </button>
-              </div>
-              <p className='text-[10px] text-muted-foreground px-1 leading-tight'>
-                {shapeRendering === 'geometricPrecision'
-                  ? 'Smoother lines, higher quality.'
-                  : 'Better performance, sharper edges.'}
-              </p>
-            </div>
 
-            <div className='h-px bg-border/50' />
+
+
 
             <div className='space-y-4'>
               <div className='flex items-center justify-between'>

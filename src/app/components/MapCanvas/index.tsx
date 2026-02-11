@@ -98,7 +98,6 @@ const MapCanvas = forwardRef<MapCanvasActions, MapCanvasProps>(
       baseLineThickness = BASE_LINE_THICKNESS,
       delayCutoff,
       onDragStart,
-      shapeRendering,
     },
     ref,
   ) => {
@@ -421,7 +420,6 @@ const MapCanvas = forwardRef<MapCanvasActions, MapCanvasProps>(
             onClickLine={onClickLine}
             onHoverLine={onHoverLine}
             onHoverEndLine={onHoverEndLine}
-            shapeRendering={shapeRendering}
             baseLineThickness={baseLineThickness}
             delayCutoff={delayCutoff}
             isDraggingRef={isDraggingRef}

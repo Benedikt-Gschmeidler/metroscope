@@ -28,7 +28,6 @@ export interface MapCanvasProps {
   baseLineThickness?: number
   delayCutoff: number
   onDragStart?: () => void
-  shapeRendering?: string
 }
 
 export interface LinesLayerProps {
@@ -46,7 +45,6 @@ export interface LinesLayerProps {
   baseLineThickness: number
   delayCutoff: number
   isDraggingRef: React.MutableRefObject<boolean>
-  shapeRendering?: string
 }
 
 export interface StationTextData {
