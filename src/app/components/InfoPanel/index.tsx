@@ -11,6 +11,7 @@ import {
 import { InfoPanelProps } from './types'
 import { ActionButton } from './ActionButton'
 import { SingleLinePanel } from './SingleLinePanel'
+import { lineColours } from '@/data/lineColours'
 
 export default function InfoPanel({
   selectedLines,
@@ -295,7 +296,7 @@ export default function InfoPanel({
                                                     'absolute rounded-full opacity-20 transition-all duration-300 ease-out', 
                                                     minimizedPeekId === line.id ? 'w-8 h-8' : 'w-4 h-4 group-hover:w-9 group-hover:h-9'
                                                 )}
-                                                style={{ backgroundColor: line.color }}
+                                                style={{ backgroundColor: lineColours[line.colorIndex] }}
                                             />
                                             
                                             <div 
@@ -303,7 +304,7 @@ export default function InfoPanel({
                                                     'absolute rounded-full border-[1.5px] transition-all duration-300 ease-out',
                                                     minimizedPeekId === line.id ? 'w-8 h-8 opacity-100' : 'w-4 h-4 opacity-0 group-hover:w-9 group-hover:h-9 group-hover:opacity-100'
                                                 )}
-                                                style={{ borderColor: line.color }}
+                                                style={{ borderColor: lineColours[line.colorIndex] }}
                                             />
 
                                             <div 
@@ -311,7 +312,7 @@ export default function InfoPanel({
                                                     'relative rounded-full z-10 transition-all duration-300 ease-out shadow-sm', 
                                                     minimizedPeekId === line.id ? 'w-4 h-4' : 'w-2 h-2 group-hover:w-3 group-hover:h-3'
                                                 )}
-                                                style={{ backgroundColor: line.color }}
+                                                style={{ backgroundColor: lineColours[line.colorIndex] }}
                                             />
                                          </div>
                                      </div>

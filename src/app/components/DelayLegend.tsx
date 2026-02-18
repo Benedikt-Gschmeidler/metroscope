@@ -4,6 +4,7 @@ import { RenderState } from '@/data/delayData'
 import { MAX_LINE_THICKNESS } from '@/lib/constants'
 import { getNiceSteps } from '@/lib/metro-utils'
 import { connectionMap } from '@/data/topologyService'
+import { lineColours } from '@/data/lineColours'
 
 interface LegendItem {
   id: string
@@ -107,7 +108,7 @@ export const DelayLegend = memo(function DelayLegend({
 
   if (maxDelay.delay > 0) {
     const label = maxDelayLine ? (
-      <span style={{ color: maxDelayLine.color, fontWeight: 700 }}>
+      <span style={{ color: lineColours[maxDelayLine.colorIndex], fontWeight: 700 }}>
         {Math.round(maxDelay.delay)} min
       </span>
     ) : (
@@ -121,7 +122,7 @@ export const DelayLegend = memo(function DelayLegend({
       id: 'max',
       delay: maxDelay.delay,
       label,
-      color: maxDelayLine ? maxDelayLine.color : 'currentColor',
+      color: maxDelayLine ? lineColours[maxDelayLine.colorIndex] : 'currentColor',
       style: 'solid',
       thickness: maxDelayLine ? 2 : 1,
       zIndex: 30,
@@ -142,11 +143,11 @@ export const DelayLegend = memo(function DelayLegend({
       id: `line-${line.id}`,
       delay,
       label: (
-        <span style={{ color: line.color, fontWeight: 700 }}>
+        <span style={{ color: lineColours[line.colorIndex], fontWeight: 700 }}>
           {Math.round(delay)} min
         </span>
       ),
-      color: line.color,
+      color: lineColours[line.colorIndex],
       style: 'solid',
       thickness: 2,
       zIndex: 100,

@@ -18,6 +18,7 @@ import {
 import * as d3 from 'd3'
 import { SingleLinePanelProps } from './types'
 import { ActionButton } from './ActionButton'
+import { lineColours } from '@/data/lineColours'
 
 const getTracksForLine = (line: Line) => {
   const tracks: Track[] = []
@@ -226,9 +227,9 @@ export const SingleLinePanel = ({
       )}
       style={{
         boxShadow: (isHoveredLine && !isMobile)
-          ? `0 0 15px 2px ${line.color}40, 0 4px 12px rgba(0,0,0,0.1)`
+          ? `0 0 15px 2px ${lineColours[line.colorIndex]}40, 0 4px 12px rgba(0,0,0,0.1)`
           : undefined,
-        borderColor: isHoveredLine ? line.color : undefined,
+        borderColor: isHoveredLine ? lineColours[line.colorIndex] : undefined,
       }}
     >
       <div
@@ -239,11 +240,11 @@ export const SingleLinePanel = ({
           <div className='relative flex items-center justify-center w-4 h-4'>
             <div
               className='absolute w-full h-full rounded-full opacity-20'
-              style={{ backgroundColor: line.color }}
+              style={{ backgroundColor: lineColours[line.colorIndex] }}
             />
             <div
               className='w-1.5 h-1.5 rounded-full z-10'
-              style={{ backgroundColor: line.color }}
+              style={{ backgroundColor: lineColours[line.colorIndex] }}
             />
           </div>
           <h2 className='text-sm font-bold font-mono text-foreground'>
@@ -292,14 +293,14 @@ export const SingleLinePanel = ({
             style={{ left: `${INFO_PANEL_TRACK_MAX_THICKNESS / 2}px` }}
           >
             {gridLines}
-            <path d={pathData} fill={line.color} opacity={0.5} />
+            <path d={pathData} fill={lineColours[line.colorIndex]} opacity={0.5} />
             {stationData.length >= 2 && (
               <line
                 x1={INFO_PANEL_TRACK_CENTER_X}
                 y1={stationData[0].y}
                 x2={INFO_PANEL_TRACK_CENTER_X}
                 y2={stationData[stationData.length - 1].y}
-                stroke={line.color}
+                stroke={lineColours[line.colorIndex]}
                 strokeWidth={2}
               />
             )}
@@ -320,9 +321,9 @@ export const SingleLinePanel = ({
                   'absolute w-full -translate-y-1/2 flex items-center group/station pointer-events-auto transition-all duration-200 rounded-lg pl-4 pr-0 -ml-4 py-1 hover:!bg-transparent hover:!border-transparent hover:!shadow-none select-none cursor-pointer',
                 )}
                 style={{
-                    backgroundColor: hoveredStationId === item.station.id ? `${line.color}15` : undefined,
-                    border: hoveredStationId === item.station.id ? `1px solid ${line.color}` : '1px solid transparent',
-                    boxShadow: hoveredStationId === item.station.id ? `0 0 10px ${line.color}30` : 'none',
+                    backgroundColor: hoveredStationId === item.station.id ? `${lineColours[line.colorIndex]}15` : undefined,
+                    border: hoveredStationId === item.station.id ? `1px solid ${lineColours[line.colorIndex]}` : '1px solid transparent',
+                    boxShadow: hoveredStationId === item.station.id ? `0 0 10px ${lineColours[line.colorIndex]}30` : 'none',
                 }}
                 onMouseEnter={() => onHoverStation(item.station.id)}
                 onMouseLeave={() => onHoverStation(null)}

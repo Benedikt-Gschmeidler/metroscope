@@ -41,7 +41,7 @@ export interface Track {
 
 export interface Line {
   id: string
-  color: string
+  colorIndex: number
   stationIds: string[]
   connectionIds: string[]
 }

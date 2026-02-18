@@ -10,6 +10,7 @@ import {
 import { DatasetMap, getDelaysForWindow } from '@/data/delayData'
 import { Topology } from '@/types/metro'
 import { connectionMap, stationByIdMap } from '@/data/topologyService'
+import { lineColours } from '@/data/lineColours'
 
 export const useTimelineData = (
   containerRef: React.RefObject<HTMLDivElement>,
@@ -51,7 +52,7 @@ export const useTimelineData = (
 
       return {
         id: line.id,
-        color: line.color,
+        color: lineColours[line.colorIndex] ?? '#000000',
         stationIds: Array.from(stationIds),
         avgX: count > 0 ? sumX / count : 0,
         avgY: count > 0 ? sumY / count : 0,

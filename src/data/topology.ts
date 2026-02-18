@@ -4713,7 +4713,7 @@ export const topology: Topology = {
   lines: [
     {
       id: 'Liège-Guillemins - Maastricht',
-      color: '#009B3A',
+      colorIndex: 8,
       stationIds: ['MT', 'MTR', 'EDN', 'FVS', 'BRESSX', 'LUIK'],
       connectionIds: [
         'MTR-MT',
@@ -4725,13 +4725,13 @@ export const topology: Topology = {
     },
     {
       id: 'Aachen Hbf - Heerlen',
-      color: '#800000',
+      colorIndex: 1,
       stationIds: ['AHBF', 'AW', 'HZ', 'EGHM', 'LG', 'HRL'],
       connectionIds: ['AW-AHBF', 'HZ-AW', 'EGHM-HZ', 'LG-EGHM', 'HRL-LG'],
     },
     {
       id: 'Arnhem Centraal - Basel SBB',
-      color: '#009B3A',
+      colorIndex: 13,
       stationIds: [
         'BASELS',
         'BASELB',
@@ -4768,7 +4768,7 @@ export const topology: Topology = {
     },
     {
       id: 'Alkmaar - Den Helder',
-      color: '#FFC425',
+      colorIndex: 2,
       stationIds: ['AMR', 'AMRN', 'HWD', 'SGN', 'ANA', 'HDRZ', 'HDR'],
       connectionIds: [
         'AMR-AMRN',
@@ -4781,25 +4781,25 @@ export const topology: Topology = {
     },
     {
       id: "'s-Hertogenbosch - Tilburg",
-      color: '#00AEDB',
+      colorIndex: 3,
       stationIds: ['HT', 'TB'],
       connectionIds: ['HT-TB'],
     },
     {
       id: 'Alkmaar - Hoorn',
-      color: '#800000',
+      colorIndex: 9,
       stationIds: ['HN', 'OBD', 'HWD', 'AMRN', 'AMR'],
       connectionIds: ['OBD-HN', 'HWD-OBD', 'AMRN-HWD', 'AMR-AMRN'],
     },
     {
       id: "'s-Hertogenbosch - Eindhoven",
-      color: '#FF6319',
+      colorIndex: 4,
       stationIds: ['HT', 'VG', 'BTL', 'BET', 'EHS', 'EHV'],
       connectionIds: ['HT-VG', 'VG-BTL', 'BTL-BET', 'BET-EHS', 'EHS-EHV'],
     },
     {
       id: 'Arnhem Centraal - Wien Hbf',
-      color: '#469990',
+      colorIndex: 5,
       stationIds: [
         'AH',
         'DUSSEL',
@@ -4838,31 +4838,31 @@ export const topology: Topology = {
     },
     {
       id: 'Almelo - Hengelo',
-      color: '#800000',
+      colorIndex: 8,
       stationIds: ['HGL', 'BN', 'AMRI', 'AML'],
       connectionIds: ['BN-HGL', 'AMRI-BN', 'AML-AMRI'],
     },
     {
       id: 'Antwerpen-Centraal - Brussels Airport-Zaventem',
-      color: '#00AEDB',
+      colorIndex: 3,
       stationIds: ['FBNL', 'MECH', 'BERCH', 'ATW'],
       connectionIds: ['MECH-FBNL', 'BERCH-MECH', 'ATW-BERCH'],
     },
     {
       id: 'Lelystad Centrum - Zwolle',
-      color: '#6CBE45',
+      colorIndex: 6,
       stationIds: ['LLS', 'DRON', 'KPNZ', 'ZL'],
       connectionIds: ['LLS-DRON', 'DRON-KPNZ', 'KPNZ-ZL'],
     },
     {
       id: 'Roermond - Venlo',
-      color: '#FFC425',
+      colorIndex: 2,
       stationIds: ['RM', 'SM', 'RV', 'TG', 'VL'],
       connectionIds: ['RM-SM', 'SM-RV', 'RV-TG', 'TG-VL'],
     },
     {
       id: 'Arnhem Centraal - Frankfurt (M) Hbf',
-      color: '#C60C30',
+      colorIndex: 7,
       stationIds: [
         'FFFM',
         'FNAF',
@@ -4895,19 +4895,19 @@ export const topology: Topology = {
     },
     {
       id: 'Hilversum - Utrecht Centraal',
-      color: '#469990',
+      colorIndex: 5,
       stationIds: ['HVS', 'HVSP', 'HOR', 'UTO', 'UT'],
       connectionIds: ['HVS-HVSP', 'HVSP-HOR', 'HOR-UTO', 'UTO-UT'],
     },
     {
       id: 'Deventer - Zutphen',
-      color: '#009B3A',
+      colorIndex: 0,
       stationIds: ['ZP', 'DV'],
       connectionIds: ['DV-ZP'],
     },
     {
       id: 'Alphen a/d Rijn - Gouda',
-      color: '#FF6319',
+      colorIndex: 4,
       stationIds: ['APN', 'BSK', 'BSKS', 'WADN', 'WAD', 'WADT', 'GD'],
       connectionIds: [
         'APN-BSK',
@@ -4920,7 +4920,7 @@ export const topology: Topology = {
     },
     {
       id: 'Alkmaar - Amsterdam Centraal',
-      color: '#FF6319',
+      colorIndex: 4,
       stationIds: [
         'AMR',
         'HLO',
@@ -4949,25 +4949,25 @@ export const topology: Topology = {
     },
     {
       id: 'Amersfoort - Utrecht Centraal',
-      color: '#6CBE45',
+      colorIndex: 6,
       stationIds: ['AMF', 'DLD', 'BHV', 'UTO', 'UT'],
       connectionIds: ['AMF-DLD', 'DLD-BHV', 'BHV-UTO', 'UTO-UT'],
     },
     {
       id: 'Deventer - Zwolle',
-      color: '#FFC425',
+      colorIndex: 2,
       stationIds: ['ZL', 'WH', 'OST', 'DV'],
       connectionIds: ['WH-ZL', 'OST-WH', 'DV-OST'],
     },
     {
       id: 'London St. Pancras - Brussel-Zuid/Midi',
-      color: '#FFC425',
+      colorIndex: 2,
       stationIds: ['BRUSZ', 'LILLEE', 'STP'],
       connectionIds: ['LILLEE-BRUSZ', 'STP-LILLEE'],
     },
     {
       id: "'s-Hertogenbosch - Utrecht Centraal",
-      color: '#0077BB',
+      colorIndex: 8,
       stationIds: [
         'HT',
         'ZBM',
@@ -4992,19 +4992,19 @@ export const topology: Topology = {
     },
     {
       id: 'Apeldoorn - Zutphen',
-      color: '#FFC425',
+      colorIndex: 6,
       stationIds: ['ZP', 'VEM', 'KBK', 'APDM', 'APD'],
       connectionIds: ['VEM-ZP', 'KBK-VEM', 'APDM-KBK', 'APD-APDM'],
     },
     {
       id: 'Winterswijk - Zutphen',
-      color: '#00AEDB',
+      colorIndex: 3,
       stationIds: ['WW', 'WWW', 'LTV', 'RL', 'VD', 'ZP'],
       connectionIds: ['WW-WWW', 'WWW-LTV', 'LTV-RL', 'RL-VD', 'VD-ZP'],
     },
     {
       id: "'s-Hertogenbosch - Nijmegen",
-      color: '#800000',
+      colorIndex: 1,
       stationIds: [
         'HT',
         'HTO',
@@ -5031,25 +5031,25 @@ export const topology: Topology = {
     },
     {
       id: 'Hengelo - Oldenzaal',
-      color: '#6CBE45',
+      colorIndex: 6,
       stationIds: ['HGL', 'HGLO', 'ODZ'],
       connectionIds: ['HGL-HGLO', 'HGLO-ODZ'],
     },
     {
       id: 'Arnhem Centraal - Nijmegen',
-      color: '#FFC425',
+      colorIndex: 2,
       stationIds: ['NM', 'NML', 'EST', 'AHZ', 'AH'],
       connectionIds: ['NML-NM', 'EST-NML', 'AHZ-EST', 'AH-AHZ'],
     },
     {
       id: 'Enschede - Gronau (Westf.)',
-      color: '#800000',
+      colorIndex: 1,
       stationIds: ['ES', 'ESE', 'GBR', 'G'],
       connectionIds: ['ES-ESE', 'ESE-GBR', 'GBR-G'],
     },
     {
       id: 'Groningen - Leer (Ostfriesland)',
-      color: '#00AEDB',
+      colorIndex: 3,
       stationIds: [
         'LEER',
         'WR',
@@ -5078,7 +5078,7 @@ export const topology: Topology = {
     },
     {
       id: 'Amersfoort - Amsterdam Centraal',
-      color: '#FFC425',
+      colorIndex: 2,
       stationIds: [
         'AMF',
         'BRN',
@@ -5107,55 +5107,55 @@ export const topology: Topology = {
     },
     {
       id: 'Maastricht - Maastricht Randwyck',
-      color: '#FFC425',
+      colorIndex: 2,
       stationIds: ['MT', 'MTR'],
       connectionIds: ['MTR-MT'],
     },
     {
       id: 'Heerlen - Kerkrade Centrum',
-      color: '#009B3A',
+      colorIndex: 0,
       stationIds: ['KRD', 'CVM', 'EGH', 'LG', 'HRL'],
       connectionIds: ['CVM-KRD', 'EGH-CVM', 'LG-EGH', 'HRL-LG'],
     },
     {
       id: 'Eindhoven - Roermond',
-      color: '#009B3A',
+      colorIndex: 0,
       stationIds: ['EHV', 'GP', 'HZE', 'MZ', 'WT', 'RM'],
       connectionIds: ['EHV-GP', 'GP-HZE', 'HZE-MZ', 'MZ-WT', 'WT-RM'],
     },
     {
       id: 'Brussel-Zuid/Midi - Brussels Airport-Zaventem',
-      color: '#800000',
+      colorIndex: 12,
       stationIds: ['BRUSZ', 'BRUSC', 'BRUSN', 'FBNL'],
       connectionIds: ['BRUSZ-BRUSC', 'BRUSC-BRUSN', 'BRUSN-FBNL'],
     },
     {
       id: 'Amersfoort - Apeldoorn',
-      color: '#009B3A',
+      colorIndex: 0,
       stationIds: ['APD', 'AMF'],
       connectionIds: ['AMF-APD'],
     },
     {
       id: 'Amsterdam Centraal - Haarlem',
-      color: '#C60C30',
+      colorIndex: 7,
       stationIds: ['HLM', 'HLMS', 'HWZB', 'ASS', 'ASD'],
       connectionIds: ['HLMS-HLM', 'HWZB-HLMS', 'ASS-HWZB', 'ASS-ASD'],
     },
     {
       id: 'Den Haag Centraal - Den Haag HS',
-      color: '#FF6319',
+      colorIndex: 4,
       stationIds: ['GV', 'GVC'],
       connectionIds: ['GVC-GV'],
     },
     {
       id: 'Enkhuizen - Hoorn',
-      color: '#FF6319',
+      colorIndex: 7,
       stationIds: ['EKZ', 'BKF', 'BKG', 'HKS', 'HNK', 'HN'],
       connectionIds: ['EKZ-BKF', 'BKF-BKG', 'BKG-HKS', 'HKS-HNK', 'HNK-HN'],
     },
     {
       id: 'Rhenen - Utrecht Centraal',
-      color: '#aec200',
+      colorIndex: 10,
       stationIds: ['RHN', 'VNDC', 'VNDW', 'MRN', 'DB', 'BNK', 'UTVR', 'UT'],
       connectionIds: [
         'RHN-VNDC',
@@ -5169,7 +5169,7 @@ export const topology: Topology = {
     },
     {
       id: 'Nijmegen - Venlo',
-      color: '#009B3A',
+      colorIndex: 0,
       stationIds: ['NM', 'NMH', 'MMLH', 'CK', 'BMR', 'VLB', 'VRY', 'BR', 'VL'],
       connectionIds: [
         'NM-NMH',
@@ -5184,7 +5184,7 @@ export const topology: Topology = {
     },
     {
       id: 'Dordrecht - Geldermalsen',
-      color: '#FF6319',
+      colorIndex: 4,
       stationIds: [
         'DDR',
         'DDRS',
@@ -5215,7 +5215,7 @@ export const topology: Topology = {
     },
     {
       id: 'Amersfoort - Schiphol Airport',
-      color: '#FF6319',
+      colorIndex: 4,
       stationIds: [
         'SHL',
         'ASDZ',
@@ -5246,19 +5246,19 @@ export const topology: Topology = {
     },
     {
       id: 'Utrecht Centraal - Utrecht Maliebaan',
-      color: '#F032E6',
+      colorIndex: 11,
       stationIds: ['UTM', 'UT'],
       connectionIds: ['UT-UTM'],
     },
     {
       id: 'Den Haag HS - Leiden Centraal',
-      color: '#009B3A',
+      colorIndex: 0,
       stationIds: ['LEDN', 'DVNK', 'VST', 'GVM', 'LAA', 'GV'],
       connectionIds: ['DVNK-LEDN', 'VST-DVNK', 'GVM-VST', 'LAA-GVM', 'GV-LAA'],
     },
     {
       id: 'Arnhem Centraal - Utrecht Centraal',
-      color: '#FF6319',
+      colorIndex: 4,
       stationIds: [
         'AH',
         'OTB',
@@ -5285,19 +5285,19 @@ export const topology: Topology = {
     },
     {
       id: 'Dordrecht - Roosendaal',
-      color: '#800000',
+      colorIndex: 7,
       stationIds: ['DDR', 'DDZD', 'ZLW', 'ZVB', 'ODB', 'RSD'],
       connectionIds: ['DDR-DDZD', 'DDZD-ZLW', 'ZLW-ZVB', 'ZVB-ODB', 'ODB-RSD'],
     },
     {
       id: 'Eindhoven - Tilburg',
-      color: '#FFC425',
+      colorIndex: 2,
       stationIds: ['EHV', 'EHS', 'BET', 'BTL', 'OT', 'TB'],
       connectionIds: ['TB-OT', 'OT-BTL', 'BTL-BET', 'BET-EHS', 'EHS-EHV'],
     },
     {
       id: 'Dordrecht - Rotterdam Centraal',
-      color: '#6CBE45',
+      colorIndex: 6,
       stationIds: ['DDR', 'ZWD', 'BRD', 'RLB', 'RTST', 'RTZ', 'RTB', 'RTD'],
       connectionIds: [
         'ZWD-DDR',
@@ -5311,7 +5311,7 @@ export const topology: Topology = {
     },
     {
       id: 'Haarlem - Uitgeest',
-      color: '#800000',
+      colorIndex: 6,
       stationIds: ['HLM', 'BLL', 'SPTZ', 'SPTN', 'DRH', 'BV', 'HK', 'UTG'],
       connectionIds: [
         'HLM-BLL',
@@ -5325,37 +5325,37 @@ export const topology: Topology = {
     },
     {
       id: 'Amsterdam Centraal - Schiphol Airport',
-      color: '#00AEDB',
+      colorIndex: 3,
       stationIds: ['ASD', 'ASS', 'ASDL', 'SHL'],
       connectionIds: ['ASS-ASD', 'ASS-ASDL', 'ASDL-SHL'],
     },
     {
       id: 'Almelo - Zwolle',
-      color: '#009B3A',
+      colorIndex: 12,
       stationIds: ['AML', 'WDN', 'NVD', 'RAT', 'HNO', 'ZL'],
       connectionIds: ['AML-WDN', 'WDN-NVD', 'NVD-RAT', 'RAT-HNO', 'HNO-ZL'],
     },
     {
       id: 'Hengelo - Zutphen',
-      color: '#FF6319',
+      colorIndex: 4,
       stationIds: ['HGL', 'HGLG', 'DDN', 'GO', 'LC', 'ZP'],
       connectionIds: ['HGL-HGLG', 'HGLG-DDN', 'DDN-GO', 'GO-LC', 'LC-ZP'],
     },
     {
       id: 'Breda - Tilburg',
-      color: '#009B3A',
+      colorIndex: 0,
       stationIds: ['BD', 'GZ', 'TBR', 'TBU', 'TB'],
       connectionIds: ['BD-GZ', 'GZ-TBR', 'TBR-TBU', 'TBU-TB'],
     },
     {
       id: 'Antwerpen-Centraal - Breda',
-      color: '#800000',
+      colorIndex: 1,
       stationIds: ['ATW', 'ATWLB', 'NDKP', 'BD'],
       connectionIds: ['ATW-ATWLB', 'ATWLB-NDKP', 'NDKP-BD'],
     },
     {
       id: 'Antwerpen-Centraal - Roosendaal',
-      color: '#FFC425',
+      colorIndex: 8,
       stationIds: [
         'RSD',
         'ESN',
@@ -5386,7 +5386,7 @@ export const topology: Topology = {
     },
     {
       id: 'Arnhem Centraal - Zürich HB',
-      color: '#522398',
+      colorIndex: 12,
       stationIds: [
         'ZUE',
         'BASELS',
@@ -5423,7 +5423,7 @@ export const topology: Topology = {
     },
     {
       id: 'Amsterdam Centraal - Hoorn',
-      color: '#0077BB',
+      colorIndex: 8,
       stationIds: ['HN', 'PMO', 'PMR', 'PMW', 'ZDK', 'ZD', 'ASS', 'ASD'],
       connectionIds: [
         'PMO-HN',
@@ -5437,7 +5437,7 @@ export const topology: Topology = {
     },
     {
       id: 'Den Haag Centraal - Utrecht Centraal',
-      color: '#C60C30',
+      colorIndex: 7,
       stationIds: [
         'UT',
         'UTLR',
@@ -5470,25 +5470,25 @@ export const topology: Topology = {
     },
     {
       id: 'Breda - Rotterdam Centraal',
-      color: '#00AEDB',
+      colorIndex: 3,
       stationIds: ['RTD', 'BD'],
       connectionIds: ['BD-RTD'],
     },
     {
       id: 'Almelo - Deventer',
-      color: '#FF6319',
+      colorIndex: 7,
       stationIds: ['AML', 'WDN', 'RSN', 'HON', 'DVC', 'DV'],
       connectionIds: ['AML-WDN', 'WDN-RSN', 'RSN-HON', 'HON-DVC', 'DVC-DV'],
     },
     {
       id: 'Enschede - Hengelo',
-      color: '#FFC425',
+      colorIndex: 2,
       stationIds: ['HGL', 'ESK', 'ES'],
       connectionIds: ['ESK-HGL', 'ES-ESK'],
     },
     {
       id: 'Almere Oostvaarders - Utrecht Centraal',
-      color: '#911EB4',
+      colorIndex: 9,
       stationIds: [
         'ALMO',
         'ALMB',
@@ -5523,13 +5523,13 @@ export const topology: Topology = {
     },
     {
       id: 'Almelo - Mariënberg',
-      color: '#FFC425',
+      colorIndex: 10,
       stationIds: ['AML', 'VZ', 'DA', 'VHP', 'MRB'],
       connectionIds: ['AML-VZ', 'VZ-DA', 'DA-VHP', 'VHP-MRB'],
     },
     {
       id: 'Brussel-Zuid/Midi - Rotterdam Centraal',
-      color: '#FF6319',
+      colorIndex: 4,
       stationIds: ['RTD', 'ATW', 'BERCH', 'MECH', 'BRUSN', 'BRUSC', 'BRUSZ'],
       connectionIds: [
         'ATW-RTD',
@@ -5542,7 +5542,7 @@ export const topology: Topology = {
     },
     {
       id: 'Tiel - Utrecht Centraal',
-      color: '#522398',
+      colorIndex: 12,
       stationIds: [
         'TL',
         'TPSW',
@@ -5567,7 +5567,7 @@ export const topology: Topology = {
     },
     {
       id: 'Eindhoven - Venlo',
-      color: '#800000',
+      colorIndex: 1,
       stationIds: ['EHV', 'HMBV', 'HMH', 'HM', 'HMBH', 'DN', 'HRT', 'BR', 'VL'],
       connectionIds: [
         'EHV-HMBV',
@@ -5582,7 +5582,7 @@ export const topology: Topology = {
     },
     {
       id: 'Amsterdam Centraal - Lelystad Centrum',
-      color: '#009B3A',
+      colorIndex: 12,
       stationIds: [
         'LLS',
         'ALMO',
@@ -5613,7 +5613,7 @@ export const topology: Topology = {
     },
     {
       id: 'Groningen - Eemshaven',
-      color: '#FFC425',
+      colorIndex: 2,
       stationIds: [
         'GN',
         'GNN',
@@ -5642,7 +5642,7 @@ export const topology: Topology = {
     },
     {
       id: 'Delfzijl - Groningen',
-      color: '#009B3A',
+      colorIndex: 0,
       stationIds: ['GN', 'GNN', 'SWD', 'BDM', 'STM', 'LP', 'APG', 'DZW', 'DZ'],
       connectionIds: [
         'GN-GNN',
@@ -5657,13 +5657,13 @@ export const topology: Topology = {
     },
     {
       id: 'Haarlem - Zandvoort aan Zee',
-      color: '#FFC425',
+      colorIndex: 9,
       stationIds: ['HLM', 'OVN', 'ZVT'],
       connectionIds: ['HLM-OVN', 'OVN-ZVT'],
     },
     {
       id: 'Arnhem Centraal - Winterswijk',
-      color: '#911EB4',
+      colorIndex: 9,
       stationIds: [
         'WW',
         'ATN',
@@ -5698,13 +5698,13 @@ export const topology: Topology = {
     },
     {
       id: 'Maastricht - Sittard',
-      color: '#800000',
+      colorIndex: 5,
       stationIds: ['MT', 'BDE', 'BK', 'LUT', 'STD'],
       connectionIds: ['MT-BDE', 'BDE-BK', 'BK-LUT', 'LUT-STD'],
     },
     {
       id: 'Bielefeld Hbf - Hengelo',
-      color: '#009B3A',
+      colorIndex: 0,
       stationIds: [
         'BIELEF',
         'BUENDE',
@@ -5727,13 +5727,13 @@ export const topology: Topology = {
     },
     {
       id: 'Rotterdam Centraal - Schiphol Airport',
-      color: '#800000',
+      colorIndex: 1,
       stationIds: ['RTD', 'SHL'],
       connectionIds: ['RTD-SHL'],
     },
     {
       id: 'Arnhem Centraal - Innsbruck Hbf',
-      color: '#0077BB',
+      colorIndex: 8,
       stationIds: [
         'INNSB',
         'JENBAC',
@@ -5774,7 +5774,7 @@ export const topology: Topology = {
     },
     {
       id: 'Arnhem Centraal - Tiel',
-      color: '#00AEDB',
+      colorIndex: 3,
       stationIds: ['TL', 'KTR', 'OP', 'HMN', 'ZA', 'EST', 'AHZ', 'AH'],
       connectionIds: [
         'KTR-TL',
@@ -5788,7 +5788,7 @@ export const topology: Topology = {
     },
     {
       id: 'Baarn - Utrecht Centraal',
-      color: '#FA8072',
+      colorIndex: 13,
       stationIds: ['BRN', 'SD', 'ST', 'STZ', 'DLD', 'BHV', 'UTO', 'UT'],
       connectionIds: [
         'BRN-SD',
@@ -5802,7 +5802,7 @@ export const topology: Topology = {
     },
     {
       id: 'Groningen - Veendam',
-      color: '#6CBE45',
+      colorIndex: 6,
       stationIds: ['GN', 'GERP', 'KW', 'MTH', 'HGZ', 'ZB', 'VDM'],
       connectionIds: [
         'GN-GERP',
@@ -5815,13 +5815,13 @@ export const topology: Topology = {
     },
     {
       id: 'Harlingen Haven - Leeuwarden',
-      color: '#FFC425',
+      colorIndex: 2,
       stationIds: ['HLGH', 'HLG', 'FN', 'DRP', 'DEI', 'LW'],
       connectionIds: ['HLGH-HLG', 'HLG-FN', 'FN-DRP', 'DRP-DEI', 'DEI-LW'],
     },
     {
       id: 'Groningen - Leeuwarden',
-      color: '#800000',
+      colorIndex: 10,
       stationIds: ['GN', 'ZH', 'GK', 'BP', 'DWE', 'FWD', 'HDG', 'LWC', 'LW'],
       connectionIds: [
         'GN-ZH',
@@ -5836,7 +5836,7 @@ export const topology: Topology = {
     },
     {
       id: 'Roosendaal - Vlissingen',
-      color: '#009B3A',
+      colorIndex: 9,
       stationIds: [
         'RSD',
         'BGN',
@@ -5865,7 +5865,7 @@ export const topology: Topology = {
     },
     {
       id: 'Emmen - Zwolle',
-      color: '#C60C30',
+      colorIndex: 5,
       stationIds: [
         'EMN',
         'EMNZ',
@@ -5894,7 +5894,7 @@ export const topology: Topology = {
     },
     {
       id: 'Hamm (Westf.) - Venlo',
-      color: '#FF6319',
+      colorIndex: 4,
       stationIds: [
         'HAMM',
         'EBEO',
@@ -5941,13 +5941,13 @@ export const topology: Topology = {
     },
     {
       id: 'Breda - Roosendaal',
-      color: '#FF6319',
+      colorIndex: 4,
       stationIds: ['RSD', 'ETN', 'BD'],
       connectionIds: ['ETN-RSD', 'BD-ETN'],
     },
     {
       id: 'Dortmund Hbf - Enschede',
-      color: '#009B3A',
+      colorIndex: 0,
       stationIds: [
         'ES',
         'ESE',
@@ -5994,19 +5994,19 @@ export const topology: Topology = {
     },
     {
       id: 'Leiden Centraal - Schiphol Airport',
-      color: '#FFC425',
+      colorIndex: 2,
       stationIds: ['SHL', 'HFD', 'NVP', 'SSH', 'LEDN'],
       connectionIds: ['HFD-SHL', 'NVP-HFD', 'SSH-NVP', 'LEDN-SSH'],
     },
     {
       id: 'Apeldoorn - Deventer',
-      color: '#800000',
+      colorIndex: 8,
       stationIds: ['APD', 'APDO', 'TWL', 'DV'],
       connectionIds: ['APD-APDO', 'APDO-TWL', 'TWL-DV'],
     },
     {
       id: 'Leeuwarden - Stavoren',
-      color: '#FF6319',
+      colorIndex: 5,
       stationIds: ['LW', 'MG', 'SKND', 'SK', 'IJT', 'WK', 'HNP', 'KMW', 'STV'],
       connectionIds: [
         'LW-MG',
@@ -6021,13 +6021,13 @@ export const topology: Topology = {
     },
     {
       id: 'Den Haag Centraal - Leiden Centraal',
-      color: '#800000',
+      colorIndex: 1,
       stationIds: ['GVC', 'LAA', 'GVM', 'VST', 'DVNK', 'LEDN'],
       connectionIds: ['GVC-LAA', 'LAA-GVM', 'GVM-VST', 'VST-DVNK', 'DVNK-LEDN'],
     },
     {
       id: 'Groningen - Bad Nieuweschans',
-      color: '#C60C30',
+      colorIndex: 7,
       stationIds: ['GN', 'GERP', 'KW', 'MTH', 'HGZ', 'ZB', 'SDA', 'WS', 'NSCH'],
       connectionIds: [
         'GN-GERP',
@@ -6042,7 +6042,7 @@ export const topology: Topology = {
     },
     {
       id: 'Amersfoort - Ede-Wageningen',
-      color: '#00AEDB',
+      colorIndex: 3,
       stationIds: ['ED', 'EDC', 'LTN', 'BNZ', 'BNC', 'BNN', 'HVL', 'AMF'],
       connectionIds: [
         'EDC-ED',
@@ -6056,13 +6056,13 @@ export const topology: Topology = {
     },
     {
       id: 'Haarlem - Leiden Centraal',
-      color: '#FF6319',
+      colorIndex: 4,
       stationIds: ['HLM', 'HAD', 'HIL', 'VH', 'LEDN'],
       connectionIds: ['HLM-HAD', 'HAD-HIL', 'HIL-VH', 'VH-LEDN'],
     },
     {
       id: 'Paris-Nord - Rotterdam Centraal',
-      color: '#009B3A',
+      colorIndex: 13,
       stationIds: [
         'RTD',
         'ATW',
@@ -6085,13 +6085,13 @@ export const topology: Topology = {
     },
     {
       id: 'Schiphol Airport - Zaandam',
-      color: '#6CBE45',
+      colorIndex: 6,
       stationIds: ['SHL', 'ASDL', 'ASS', 'ZD'],
       connectionIds: ['ASDL-SHL', 'ASS-ASDL', 'ZD-ASS'],
     },
     {
       id: 'Den Haag HS - Rotterdam Centraal',
-      color: '#C60C30',
+      colorIndex: 10,
       stationIds: ['RTD', 'SDM', 'DTCP', 'DT', 'RSW', 'GVMW', 'GV'],
       connectionIds: [
         'SDM-RTD',
@@ -6104,7 +6104,7 @@ export const topology: Topology = {
     },
     {
       id: 'Arnhem Centraal - Düsseldorf Hbf',
-      color: '#6CBE45',
+      colorIndex: 6,
       stationIds: [
         'DUSSEL',
         'KDFFH',
@@ -6137,7 +6137,7 @@ export const topology: Topology = {
     },
     {
       id: 'Heerlen - Sittard',
-      color: '#FFC425',
+      colorIndex: 3,
       stationIds: ['HRL', 'HB', 'NH', 'SN', 'SBK', 'GLN', 'STD'],
       connectionIds: [
         'HRL-HB',
@@ -6150,19 +6150,19 @@ export const topology: Topology = {
     },
     {
       id: 'Kampen - Zwolle',
-      color: '#0077BB',
+      colorIndex: 8,
       stationIds: ['KPN', 'ZLSH', 'ZL'],
       connectionIds: ['KPN-ZLSH', 'ZLSH-ZL'],
     },
     {
       id: 'Roermond - Sittard',
-      color: '#FF6319',
+      colorIndex: 4,
       stationIds: ['RM', 'EC', 'SRN', 'STD'],
       connectionIds: ['RM-EC', 'EC-SRN', 'SRN-STD'],
     },
     {
       id: 'Berlin Ostbahnhof - Hengelo',
-      color: '#00AEDB',
+      colorIndex: 3,
       stationIds: [
         'HGL',
         'HGLO',
@@ -6199,7 +6199,7 @@ export const topology: Topology = {
     },
     {
       id: 'Amsterdam Centraal - Utrecht Centraal',
-      color: '#800000',
+      colorIndex: 1,
       stationIds: [
         'ASD',
         'ASDM',
@@ -6228,7 +6228,7 @@ export const topology: Topology = {
     },
     {
       id: 'Heerlen - Maastricht',
-      color: '#FF6319',
+      colorIndex: 6,
       stationIds: [
         'HRL',
         'HRLW',
@@ -6255,7 +6255,7 @@ export const topology: Topology = {
     },
     {
       id: 'Arnhem Centraal - Zutphen',
-      color: '#800000',
+      colorIndex: 1,
       stationIds: ['AH', 'AHP', 'AHPR', 'VP', 'RH', 'DR', 'BMN', 'ZP'],
       connectionIds: [
         'AH-AHP',
@@ -6269,7 +6269,7 @@ export const topology: Topology = {
     },
     {
       id: 'Enschede - Münster (Westf.) Hbf',
-      color: '#FF6319',
+      colorIndex: 4,
       stationIds: [
         'ES',
         'ESE',
@@ -6304,7 +6304,7 @@ export const topology: Topology = {
     },
     {
       id: 'Amsterdam Centraal - Woerden',
-      color: '#6CBE45',
+      colorIndex: 6,
       stationIds: [
         'WD',
         'BKL',
@@ -6329,7 +6329,7 @@ export const topology: Topology = {
     },
     {
       id: 'Lelystad Centrum - Schiphol Airport',
-      color: '#C60C30',
+      colorIndex: 7,
       stationIds: [
         'LLS',
         'ALMO',
@@ -6362,7 +6362,7 @@ export const topology: Topology = {
     },
     {
       id: 'Leeuwarden - Zwolle',
-      color: '#00AEDB',
+      colorIndex: 3,
       stationIds: ['LW', 'GW', 'AKM', 'HR', 'HRY', 'WV', 'SWK', 'MP', 'ZL'],
       connectionIds: [
         'LW-GW',
@@ -6377,7 +6377,7 @@ export const topology: Topology = {
     },
     {
       id: 'Amersfoort - Zwolle',
-      color: '#800000',
+      colorIndex: 1,
       stationIds: [
         'ZL',
         'WZ',
@@ -6406,7 +6406,7 @@ export const topology: Topology = {
     },
     {
       id: 'Leiden Centraal - Utrecht Centraal',
-      color: '#00AEDB',
+      colorIndex: 3,
       stationIds: [
         'LEDN',
         'LDL',
@@ -6431,7 +6431,7 @@ export const topology: Topology = {
     },
     {
       id: 'Rotterdam Centraal - Utrecht Centraal',
-      color: '#FFC425',
+      colorIndex: 2,
       stationIds: [
         'RTD',
         'RTN',
@@ -6462,13 +6462,13 @@ export const topology: Topology = {
     },
     {
       id: 'Breda - Dordrecht',
-      color: '#FFC425',
+      colorIndex: 2,
       stationIds: ['DDR', 'DDZD', 'ZLW', 'BDPB', 'BD'],
       connectionIds: ['DDR-DDZD', 'DDZD-ZLW', 'BDPB-ZLW', 'BD-BDPB'],
     },
     {
       id: 'Schiphol Airport - Utrecht Centraal',
-      color: '#009B3A',
+      colorIndex: 0,
       stationIds: [
         'SHL',
         'ASDZ',
@@ -6495,7 +6495,7 @@ export const topology: Topology = {
     },
     {
       id: 'Groningen - Zwolle',
-      color: '#FF6319',
+      colorIndex: 4,
       stationIds: ['GN', 'GERP', 'HRN', 'ASN', 'BL', 'HGV', 'MP', 'ZL'],
       connectionIds: [
         'GN-GERP',

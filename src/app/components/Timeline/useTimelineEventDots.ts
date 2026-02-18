@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import * as d3 from 'd3'
 import { TimeSegment } from './types'
+import { lineByIdMap } from '@/data/topologyService'
+import { lineColours } from '@/data/lineColours'
 
 export const useTimelineEventDots = (
   g: d3.Selection<SVGGElement, unknown, null, undefined> | null,
@@ -151,7 +153,8 @@ export const useTimelineEventDots = (
         if (hasPins && !isPinned && !isHovered) {
           return '#ccc'
         }
-        return d.color
+        const line = lineByIdMap.get(d.lineId)
+        return line ? lineColours[line.colorIndex] : '#ccc'
       })
       .attr('stroke-width', 1)
       .attr('opacity', (d) => {

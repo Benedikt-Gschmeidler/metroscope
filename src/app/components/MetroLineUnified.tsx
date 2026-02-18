@@ -6,6 +6,7 @@ import {
   stationByIdMap,
   lineByIdMap,
 } from '@/data/topologyService'
+import { lineColours } from '@/data/lineColours'
 import {
   directionToUnitVector,
   getConnectionPosition,
@@ -617,7 +618,7 @@ function MetroLineUnified({
     return { delayPath, corePath, overflowPath }
   }, [trackIds, renderState, baseThickness, delayCutoff, lineId])
 
-  const baseColor = line?.color ?? '#000'
+  const baseColor = line ? lineColours[line.colorIndex] : '#000'
 
   const { fillColor, opacity } = useMemo(() => {
     if (grayedOut) {
