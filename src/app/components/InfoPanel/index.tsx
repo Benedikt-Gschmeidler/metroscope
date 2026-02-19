@@ -12,6 +12,7 @@ import { InfoPanelProps } from './types'
 import { ActionButton } from './ActionButton'
 import { SingleLinePanel } from './SingleLinePanel'
 import { lineColours } from '@/data/lineColours'
+import { MiniLineIcon } from '../MiniLineIcon'
 
 export default function InfoPanel({
   selectedLines,
@@ -294,7 +295,7 @@ export default function InfoPanel({
                                             <div 
                                                 className={cn(
                                                     'absolute rounded-full opacity-20 transition-all duration-300 ease-out', 
-                                                    minimizedPeekId === line.id ? 'w-8 h-8' : 'w-4 h-4 group-hover:w-9 group-hover:h-9'
+                                                    minimizedPeekId === line.id ? 'w-10 h-10' : 'w-6 h-6 group-hover:w-9 group-hover:h-9'
                                                 )}
                                                 style={{ backgroundColor: lineColours[line.colorIndex] }}
                                             />
@@ -302,17 +303,19 @@ export default function InfoPanel({
                                             <div 
                                                 className={cn(
                                                     'absolute rounded-full border-[1.5px] transition-all duration-300 ease-out',
-                                                    minimizedPeekId === line.id ? 'w-8 h-8 opacity-100' : 'w-4 h-4 opacity-0 group-hover:w-9 group-hover:h-9 group-hover:opacity-100'
+                                                    minimizedPeekId === line.id ? 'w-10 h-10 opacity-100' : 'w-6 h-6 opacity-0 group-hover:w-9 group-hover:h-9'
                                                 )}
                                                 style={{ borderColor: lineColours[line.colorIndex] }}
                                             />
 
-                                            <div 
+                                            <MiniLineIcon
+                                                line={line}
                                                 className={cn(
-                                                    'relative rounded-full z-10 transition-all duration-300 ease-out shadow-sm', 
-                                                    minimizedPeekId === line.id ? 'w-4 h-4' : 'w-2 h-2 group-hover:w-3 group-hover:h-3'
+                                                    'relative z-10 transition-all duration-300 ease-out', 
+                                                    minimizedPeekId === line.id ? 'w-8 h-8' : 'w-8 h-8'
                                                 )}
-                                                style={{ backgroundColor: lineColours[line.colorIndex] }}
+                                                strokeWidth={2}
+                                                color={lineColours[line.colorIndex]}
                                             />
                                          </div>
                                      </div>

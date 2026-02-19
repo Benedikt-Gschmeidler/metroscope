@@ -19,6 +19,7 @@ import * as d3 from 'd3'
 import { SingleLinePanelProps } from './types'
 import { ActionButton } from './ActionButton'
 import { lineColours } from '@/data/lineColours'
+import { MiniLineIcon } from '../MiniLineIcon'
 
 const getTracksForLine = (line: Line) => {
   const tracks: Track[] = []
@@ -237,14 +238,16 @@ export const SingleLinePanel = ({
         onClick={onToggleExpand}
       >
         <div className='flex items-center gap-3 overflow-hidden'>
-          <div className='relative flex items-center justify-center w-4 h-4'>
+          <div className='relative flex items-center justify-center w-6 h-6 mr-1'>
             <div
               className='absolute w-full h-full rounded-full opacity-20'
               style={{ backgroundColor: lineColours[line.colorIndex] }}
             />
-            <div
-              className='w-1.5 h-1.5 rounded-full z-10'
-              style={{ backgroundColor: lineColours[line.colorIndex] }}
+            <MiniLineIcon
+              line={line}
+              className="w-8 h-8 z-10"
+              strokeWidth={2}
+              color={lineColours[line.colorIndex]}
             />
           </div>
           <h2 className='text-sm font-bold font-mono text-foreground'>
