@@ -159,6 +159,7 @@ const MapCanvas = forwardRef<MapCanvasActions, MapCanvasProps>(
         let textAnchor: React.SVGProps<SVGTextElement>['textAnchor'] = 'middle'
         let dominantBaseline: React.SVGProps<SVGTextElement>['dominantBaseline'] =
           'middle'
+        let textTransform: string | undefined
 
         if (offset.x > 0.1) textAnchor = 'start'
         else if (offset.x < -0.1) textAnchor = 'end'
@@ -166,7 +167,19 @@ const MapCanvas = forwardRef<MapCanvasActions, MapCanvasProps>(
         if (offset.y > 0.1) dominantBaseline = 'hanging'
         else if (offset.y < -0.1) dominantBaseline = 'auto'
 
-        data.set(station.id, { textX, textY, textAnchor, dominantBaseline })
+        if (Math.abs(offset.x) < 0.1) {
+          if (offset.y < -0.1) {
+            textTransform = `rotate(-45, ${textX}, ${textY})`
+            textAnchor = 'start'
+            dominantBaseline = 'middle'
+          } else if (offset.y > 0.1) {
+            textTransform = `rotate(45, ${textX}, ${textY})`
+            textAnchor = 'start'
+            dominantBaseline = 'middle'
+          }
+        }
+
+        data.set(station.id, { textX, textY, textAnchor, dominantBaseline, textTransform })
       })
       return data
     }, [topology, stationOffsets])

@@ -58,6 +58,7 @@ export const Station = memo(
           y={textData.textY}
           textAnchor={textData.textAnchor}
           dominantBaseline={textData.dominantBaseline}
+          transform={textData.textTransform}
           opacity={1}
           fontSize='0.15em'
           fill='black'

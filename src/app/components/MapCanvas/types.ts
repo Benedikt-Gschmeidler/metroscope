@@ -52,6 +52,7 @@ export interface StationTextData {
   textY: number
   textAnchor: React.SVGProps<SVGTextElement>['textAnchor']
   dominantBaseline: React.SVGProps<SVGTextElement>['dominantBaseline']
+  textTransform?: string
 }
 
 export interface StationsLayerProps {
