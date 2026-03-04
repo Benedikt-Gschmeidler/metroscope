@@ -54,16 +54,22 @@ export const useTimelineAxes = (
           `
     )
 
-    axisGroup.selectAll('.tick text').attr(
-      'class',
-      `
+    axisGroup.selectAll('.tick text')
+      .attr(
+        'class',
+        `
           tick text
           text-xs
           font-mono
           fill-foreground
           select-none
           `
-    )
+      )
+      .style('text-anchor', (_, i, nodes) => {
+        if (i === 0) return 'start'
+        if (i === nodes.length - 1) return 'end'
+        return 'middle'
+      })
 
     return () => {
       axisGroup.remove()
