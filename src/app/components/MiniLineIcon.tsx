@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { Line } from '@/types/metro'
-import { stationByIdMap } from '@/data/topologyService'
+import { stationByIdMap, getConnectionById } from '@/data/topologyService'
 import * as d3 from 'd3'
 import { lineColours } from '@/data/lineColours'
 import { cn } from '@/lib/utils'
@@ -19,15 +19,41 @@ export const MiniLineIcon = ({
   color,
 }: MiniLineIconProps) => {
   const { pathData, viewBox } = useMemo(() => {
-    const stations = line.stationIds
-      .map((id) => stationByIdMap.get(id))
-      .filter((s) => s !== undefined)
+    const points: [number, number][] = []
 
-    if (stations.length < 2) {
-      return { pathData: '', viewBox: '0 0 100 100' }
+    for (let i = 0; i < line.stationIds.length; i++) {
+      const stationId = line.stationIds[i]
+      const station = stationByIdMap.get(stationId)
+      if (!station) continue
+      
+      points.push([station.xMetro, station.yMetro])
+
+      if (i < line.stationIds.length - 1) {
+        const nextStationId = line.stationIds[i + 1]
+        
+        const connectionId = line.connectionIds.find(cid => {
+          const conn = getConnectionById(cid)
+          if (!conn) return false
+          return (conn.stations.from === stationId && conn.stations.to === nextStationId) ||
+                 (conn.stations.to === stationId && conn.stations.from === nextStationId)
+        })
+
+        if (connectionId) {
+          const conn = getConnectionById(connectionId)
+          if (conn && conn.midpoints) {
+            if (conn.stations.from === stationId && conn.stations.to === nextStationId) {
+              conn.midpoints.forEach(mp => points.push([mp.x, mp.y]))
+            } else {
+              [...conn.midpoints].reverse().forEach(mp => points.push([mp.x, mp.y]))
+            }
+          }
+        }
+      }
     }
 
-    const points: [number, number][] = stations.map((s) => [s!.xMetro, s!.yMetro])
+    if (points.length < 2) {
+      return { pathData: '', viewBox: '0 0 100 100' }
+    }
 
     const xValues = points.map((p) => p[0])
     const yValues = points.map((p) => p[1])
