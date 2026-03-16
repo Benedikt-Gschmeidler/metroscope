@@ -180,7 +180,7 @@ export default function MetroMap({ topology }: MetroMapProps) {
 
     async function loadData() {
       try {
-        const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
+        const basePath = process.env.NODE_ENV === 'production' ? '/metroscope' : '';
         const response = await fetch(`${basePath}/data/preprocessed-delays.json`)
         const json = await response.json()
         workerRef.current?.postMessage({ type: 'LOAD_DATA', payload: json })
