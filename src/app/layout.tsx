@@ -15,16 +15,11 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 })
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+const basePath = process.env.NODE_ENV === 'production' ? '/metroscope' : '';
 
 export const metadata: Metadata = {
   title: 'Metroscope',
   description: 'Applying the Metro Map Metaphor to Visualize Train Delays',
-  icons: {
-    icon: `${basePath}/metro-eye.svg`,
-    shortcut: `${basePath}/metro-eye.svg`,
-    apple: `${basePath}/metro-eye.svg`,
-  },
 }
 
 export default function RootLayout({

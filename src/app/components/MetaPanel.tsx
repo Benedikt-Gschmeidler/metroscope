@@ -87,6 +87,8 @@ export default function MetaPanel({
 
   const activePresets = UNIFIED_PRESETS
 
+  const basePath = process.env.NODE_ENV === 'production' ? '/metroscope' : '';
+
   return (
     <TooltipProvider>
       <div
@@ -100,7 +102,7 @@ export default function MetaPanel({
           <div className='flex items-center justify-between p-3'>
             <div className='flex items-center gap-3'>
               <div className='h-8 w-8 rounded-lg flex items-center justify-center text-primary shrink-0'>
-                <img src="/metro-eye.svg" alt="Metroscope" className="h-full w-full" />
+                <img src={`${basePath}/metro-eye.svg`} alt="Metroscope" className="h-full w-full" />
               </div>
               <span className='font-semibold text-sm tracking-tight whitespace-nowrap'>
                 Metroscope
