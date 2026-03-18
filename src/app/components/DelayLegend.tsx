@@ -94,7 +94,7 @@ export const DelayLegend = memo(function DelayLegend({
 
   const steps = getNiceSteps(maxDelay.delay)
   steps.forEach((step) => {
-    if (Math.abs(step - maxDelay.delay) < maxDelay.delay * 0.05) return
+    if (step >= maxDelay.delay || Math.abs(step - maxDelay.delay) < maxDelay.delay * 0.05) return
     items.push({
       id: `step-${step}`,
       delay: step,
