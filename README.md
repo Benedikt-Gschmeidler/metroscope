@@ -1,6 +1,6 @@
-# Metro Style Visualization Tool for Dutch Railway Delays in 2024
+# **Metroscope** - Metro Style Visualization Tool for Dutch Railway Delays in 2024
 
-Exploring the use of the **Metro Map Metaphor** for visualizing dynamic networks. This tool explores how the metro map metaphor can be used in dynamic networks by applying it to the Dutch railway network and visualizing delays over time.
+Exploring the use of the **Metro Map Metaphor** for visualizing dynamic networks. This tool explores how the metro map metaphor can be used in dynamic networks by applying it to the Dutch railway network and visualizing delays over time. Data is sourced from [Rijden de Treinen](https://www.rijdendetreinen.nl/)
 
 ## Key Features
 
