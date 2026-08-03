@@ -88,7 +88,7 @@ export const SpeedControl = React.memo<SpeedControlProps>(({ isExpanded, speed, 
                 <SelectTrigger className='w-full h-9 text-xs'>
                     <div className='flex items-center gap-2'>
                         <Zap className='h-3.5 w-3.5' />
-                        <SelectValue />
+                        <SelectValue>{closestPreset.label}</SelectValue>
                     </div>
                 </SelectTrigger>
                 <SelectContent>
