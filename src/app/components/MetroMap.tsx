@@ -17,6 +17,7 @@ import { DelayLegend } from './DelayLegend'
 import { DatasetMap, processRawData, RenderState } from '@/data/delayData'
 import {
   TIME_RANGE,
+  SENSITIVITY_PRESETS,
 } from '@/lib/constants'
 import { Granularity, TimeSelection, getSegmentForGranularity } from './Timeline/types'
 import {
@@ -250,6 +251,7 @@ export default function MetroMap({ topology }: MetroMapProps) {
 
   const handleGranularityChange = useCallback((newGranularity: Granularity) => {
     setGranularity(newGranularity)
+    setDelayCutoff(SENSITIVITY_PRESETS[newGranularity])
 
     setCurrentTimeSelection((prev) => {
       if (!prev || prev.mode !== 'range') return prev

@@ -32,6 +32,12 @@ export const MAX_DELAYS_CUSTOM = {
 
 export const MAX_DELAYS = MAX_DELAYS_CUSTOM
 
+export const SENSITIVITY_PRESETS: Record<'day' | 'week' | 'month', number> = {
+  month: 8409,
+  week: 2321,
+  day: 177,
+}
+
 export const COUNTRY_OUTLINE = {
   strokeWidth: 1.5,
   strokeColor: '#c8d1dc',

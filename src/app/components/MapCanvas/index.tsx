@@ -407,13 +407,13 @@ const MapCanvas = forwardRef<MapCanvasActions, MapCanvasProps>(
               width='2'
               height='4'
               transform='translate(0,0)'
-              fill='#00000033'
+              fill='#00000022'
             />
             <rect
               width='2'
               height='4'
               transform='translate(2,0)'
-              fill='#00000066'
+              fill='#00000044'
             />
           </pattern>
         </defs>

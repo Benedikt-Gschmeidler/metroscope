@@ -30,6 +30,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Kbd } from '@/components/ui/kbd'
 import { Badge } from '@/components/ui/badge'
+import { SENSITIVITY_PRESETS } from '@/lib/constants'
 
 
 interface MetaPanelProps {
@@ -43,15 +44,15 @@ interface MetaPanelProps {
 
 const DEFAULT_BASE_THICKNESS = 0.5
 
-const MIN_CUTOFF_MINUTES = 5 
+const MIN_CUTOFF_MINUTES = 5
 const MAX_CUTOFF_MINUTES = 100000
 
 
 
 const UNIFIED_PRESETS = [
-  { label: 'Month', value: 8409, color: 'bg-blue-500' },
-  { label: 'Week', value: 2321, color: 'bg-emerald-500' },
-  { label: 'Day', value: 177, color: 'bg-orange-500' },
+  { label: 'Month', value: SENSITIVITY_PRESETS.month, color: 'bg-blue-500' },
+  { label: 'Week', value: SENSITIVITY_PRESETS.week, color: 'bg-emerald-500' },
+  { label: 'Day', value: SENSITIVITY_PRESETS.day, color: 'bg-orange-500' },
 ]
 
 export default function MetaPanel({

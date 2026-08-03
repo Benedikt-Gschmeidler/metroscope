@@ -283,7 +283,10 @@ function MetroLineUnified({
         hasAnyClamping = true
       }
 
-      const borderSize = MAX_LINE_THICKNESS * 0.3
+      const borderSize = Math.min(
+        MAX_LINE_THICKNESS * 0.3,
+        Math.max(baseThickness * 1.5, MAX_LINE_THICKNESS * 0.1),
+      )
 
       const overflowWidthFrom = isClampedFrom
         ? delayWidthFrom + borderSize
