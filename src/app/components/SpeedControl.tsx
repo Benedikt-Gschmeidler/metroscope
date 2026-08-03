@@ -3,6 +3,13 @@ import { Zap } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Slider } from '@/components/ui/slider'
 import { Badge } from '@/components/ui/badge'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 interface SpeedControlProps {
   isExpanded: boolean
@@ -12,10 +19,10 @@ interface SpeedControlProps {
 
 export const SpeedControl = React.memo<SpeedControlProps>(({ isExpanded, speed, onSpeedChange }) => {
   const presets = [
-    { label: '0.5x', value: 0.5 },
-    { label: '1x', value: 1.0 },
-    { label: '2x', value: 2.0 },
-    { label: '4x', value: 4.0 },
+    { label: '0.5x', value: 0.5, description: 'Slower' },
+    { label: '1x', value: 1.0, description: 'Normal' },
+    { label: '2x', value: 2.0, description: 'Faster' },
+    { label: '4x', value: 4.0, description: 'Very Fast' },
   ]
 
   const MIN_SPEED = 0.1
@@ -37,27 +44,11 @@ export const SpeedControl = React.memo<SpeedControlProps>(({ isExpanded, speed, 
 
   const sliderValue = getSliderValue(speed)
 
-  const [minimizedInput, setMinimizedInput] = React.useState(speed.toFixed(1))
-  const [isFocused, setIsFocused] = React.useState(false)
-
-  React.useEffect(() => {
-     if (isFocused) return
-     setMinimizedInput(speed.toFixed(1))
-  }, [speed, isFocused])
-
-  const handleMinimizedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setMinimizedInput(e.target.value)
-  }
-
-  const handleBlur = () => {
-      setIsFocused(false)
-      const val = parseFloat(minimizedInput)
-      if (!isNaN(val) && val > 0) {
-          onSpeedChange(Math.max(MIN_SPEED, Math.min(MAX_SPEED, val)))
-      } else {
-          setMinimizedInput(speed.toFixed(1))
-      }
-  }
+  const closestPreset = presets.reduce(
+    (closest, p) =>
+      Math.abs(speed - p.value) < Math.abs(speed - closest.value) ? p : closest,
+    presets[0],
+  )
 
   return (
     <div
@@ -90,20 +81,24 @@ export const SpeedControl = React.memo<SpeedControlProps>(({ isExpanded, speed, 
           isExpanded ? "h-auto min-h-[5rem]" : "h-9" 
       )}>
          {!isExpanded && (
-            <div className='relative w-full h-full'>
-                <input
-                    type="number"
-                    min="0.1"
-                    step="0.1"
-                    className="w-full h-full bg-muted/50 border border-border/50 rounded-lg text-xs font-medium text-center focus:outline-none focus:ring-1 focus:ring-primary px-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                    value={minimizedInput}
-                    onChange={handleMinimizedChange}
-                    onFocus={() => setIsFocused(true)}
-                    onBlur={handleBlur}
-                    onKeyDown={(e) => e.stopPropagation()} 
-                />
-                 <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-muted-foreground pointer-events-none">x</span>
-            </div>
+            <Select
+                value={String(closestPreset.value)}
+                onValueChange={(v) => onSpeedChange(parseFloat(v))}
+            >
+                <SelectTrigger className='w-full h-9 text-xs'>
+                    <div className='flex items-center gap-2'>
+                        <Zap className='h-3.5 w-3.5' />
+                        <SelectValue />
+                    </div>
+                </SelectTrigger>
+                <SelectContent>
+                    {presets.map((preset) => (
+                        <SelectItem key={preset.label} value={String(preset.value)}>
+                            {preset.label} — {preset.description}
+                        </SelectItem>
+                    ))}
+                </SelectContent>
+            </Select>
          )}
 
          {isExpanded && (
