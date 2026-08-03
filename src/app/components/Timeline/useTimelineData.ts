@@ -139,20 +139,18 @@ export const useTimelineData = (
           const delaysInWindow = getDelaysForWindow(dataset, start, end)
 
           const delaySummaryData: DelaySummaryData[] = lineMeta.map((meta) => {
-            let totalDelay = 0
             let maxDelay = 0
             meta.stationIds.forEach((sid) => {
               const key = `${meta.id}::${sid}`
-              totalDelay += delaysInWindow.delays.get(key) || 0
               maxDelay = Math.max(maxDelay, delaysInWindow.delays.get(key) || 0)
             })
 
             return {
-              totalDelayMinutes: totalDelay,
+              totalDelayMinutes: maxDelay,
               lineColor: meta.color,
               gridX: meta.avgX,
               gridY: meta.avgY,
-              lineId: meta.id, 
+              lineId: meta.id,
             }
           })
 
