@@ -283,10 +283,7 @@ function MetroLineUnified({
         hasAnyClamping = true
       }
 
-      const borderSize = Math.min(
-        MAX_LINE_THICKNESS * 0.3,
-        Math.max(baseThickness * 1.5, MAX_LINE_THICKNESS * 0.1),
-      )
+      const borderSize = MAX_LINE_THICKNESS * 0.3
 
       const overflowWidthFrom = isClampedFrom
         ? delayWidthFrom + borderSize
@@ -514,7 +511,12 @@ function MetroLineUnified({
           result.splice(result.length - 1, 1)
           const pMinus1 = points[i - 1]
 
-          const cornerRadius = Math.max(1.5, p0.overflowWidth * 0.75)
+          const maxOverflowWidth = Math.max(
+            p0.overflowWidth,
+            pMinus1.overflowWidth,
+            p1.overflowWidth,
+          )
+          const cornerRadius = Math.max(1.5, maxOverflowWidth * 1.25)
           const prev = getPointOnLineXAway(p0.position, pMinus1.position, cornerRadius)
           const next = getPointOnLineXAway(p0.position, p1.position, cornerRadius)
 
