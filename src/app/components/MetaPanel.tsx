@@ -228,10 +228,15 @@ export default function MetaPanel({
                   Auto
                 </button>
               </div>
-              <p className='text-[10px] text-muted-foreground px-1 leading-tight'>
-                {keepDelayConsistent
-                  ? 'Advanced: scale is fixed to the sensitivity setting below, independent of what you have selected.'
-                  : 'Auto: scale adapts to the largest aggregated delay in your current selection.'}
+              <p className='text-[10px] px-1 leading-relaxed'>
+                <span className='font-semibold text-foreground'>
+                  {keepDelayConsistent ? 'Advanced' : 'Auto'}
+                </span>
+                <span className='text-muted-foreground'>
+                  {keepDelayConsistent
+                    ? ' — the scale is pinned to a fixed threshold, set via the Sensitivity slider below, independent of what you have selected. Use it to compare delay magnitudes consistently across different time windows.'
+                    : " — the scale reshapes itself to the largest aggregated delay in your current selection. Use it to maximize contrast within whatever you're looking at right now."}
+                </span>
               </p>
             </div>
 
