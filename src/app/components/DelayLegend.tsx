@@ -2,7 +2,7 @@ import React, { memo, useEffect, useMemo, useRef } from 'react'
 import type { Line, Topology } from '@/types/metro'
 import { RenderState } from '@/data/delayData'
 import { MAX_LINE_THICKNESS } from '@/lib/constants'
-import { getNiceSteps } from '@/lib/metro-utils'
+import { getNiceSteps, formatDelayDuration } from '@/lib/metro-utils'
 import { connectionMap } from '@/data/topologyService'
 import { lineColours } from '@/data/lineColours'
 
@@ -85,7 +85,7 @@ export const DelayLegend = memo(function DelayLegend({
   items.push({
     id: 'base',
     delay: 0,
-    label: '0 min',
+    label: formatDelayDuration(0),
     color: 'currentColor',
     style: 'dashed',
     thickness: 1,
@@ -98,7 +98,7 @@ export const DelayLegend = memo(function DelayLegend({
     items.push({
       id: `step-${step}`,
       delay: step,
-      label: `${step} min`,
+      label: formatDelayDuration(step),
       color: 'currentColor',
       style: 'dashed',
       thickness: 1,
@@ -109,12 +109,12 @@ export const DelayLegend = memo(function DelayLegend({
   if (maxDelay.delay > 0) {
     const label = maxDelayLine ? (
       <span style={{ color: lineColours[maxDelayLine.colorIndex], fontWeight: 700 }}>
-        {Math.round(maxDelay.delay)} min
+        {formatDelayDuration(maxDelay.delay)}
       </span>
     ) : (
       <span style={{ fontWeight: 700 }}>
         {scaleMode === 'absolute' ? 'Limit: ' : ''}
-        {Math.round(maxDelay.delay)} min
+        {formatDelayDuration(maxDelay.delay)}
       </span>
     )
 
@@ -144,7 +144,7 @@ export const DelayLegend = memo(function DelayLegend({
       delay,
       label: (
         <span style={{ color: lineColours[line.colorIndex], fontWeight: 700 }}>
-          {Math.round(delay)} min
+          {formatDelayDuration(delay)}
         </span>
       ),
       color: lineColours[line.colorIndex],

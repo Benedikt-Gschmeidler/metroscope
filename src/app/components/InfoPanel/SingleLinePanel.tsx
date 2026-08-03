@@ -5,6 +5,7 @@ import {
   getTrackByLineIdAndConnectionId,
   stationByIdMap,
 } from '@/data/topologyService'
+import { formatDelayDuration } from '@/lib/metro-utils'
 import { X, Eye, EyeOff, Focus } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import {
@@ -354,7 +355,7 @@ export const SingleLinePanel = ({
               {item.delay > 0 && (
                 <div className='absolute top-2 ml-16 pointer-events-auto'>
                     <span className='font-mono text-red-500 dark:text-red-400 whitespace-nowrap tabular-nums text-sm font-bold'>
-                      {item.delay.toFixed(0)} min
+                      {formatDelayDuration(item.delay)}
                     </span>
                 </div>
               )}
