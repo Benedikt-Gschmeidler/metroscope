@@ -19,9 +19,9 @@ export const MAX_DELAYS_P95 = {
 }
 
 export const MAX_DELAYS_P100 = {
-  day: 279720,
-  week: 279720,
-  month: 538370,
+  day: 32100,
+  week: 32100,
+  month: 61700,
 }
 
 export const MAX_DELAYS_CUSTOM = {

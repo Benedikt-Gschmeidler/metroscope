@@ -245,6 +245,7 @@ export default function MetroMap({ topology }: MetroMapProps) {
     setPinnedLineIds(new Set())
     setHoveredLine(undefined)
     setCurrentTimeSelection(DEFAULT_TIME_SELECTION)
+    setSelectionMode('range')
   }, [])
 
   const postMessageThrottled = useRef(
