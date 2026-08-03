@@ -220,6 +220,22 @@ const Timeline: React.FC<ExtendedTimelineProps> = ({
     }
   }, [])
 
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    const onWheel = (e: WheelEvent) => {
+      const isMostlyVertical = Math.abs(e.deltaY) > Math.abs(e.deltaX)
+      if (!isMostlyVertical) return
+
+      e.preventDefault()
+      container.scrollLeft += e.deltaY
+    }
+
+    container.addEventListener('wheel', onWheel, { passive: false })
+    return () => container.removeEventListener('wheel', onWheel)
+  }, [])
+
   useTimelineSegments(g, allSegments, xScale, chartHeight)
   useTimelineEventDots(
     g,
