@@ -111,5 +111,6 @@ export const getNiceSteps = (max: number) => {
 
 export const formatDelayDuration = (minutes: number): string => {
   if (minutes < 60) return `${minutes.toFixed(0)} min`
-  return `${(minutes / 60).toFixed(1)}h`
+  if (minutes < 1440) return `${(minutes / 60).toFixed(1)}h`
+  return `${(minutes / 1440).toFixed(1)}d`
 }
