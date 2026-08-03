@@ -214,7 +214,7 @@ export default function MetaPanel({
                       : 'text-muted-foreground hover:text-foreground',
                   )}
                 >
-                  Absolute
+                  Advanced
                 </button>
                 <button
                   onClick={() => onKeepDelayConsistentChange(false)}
@@ -225,13 +225,13 @@ export default function MetaPanel({
                       : 'text-muted-foreground hover:text-foreground',
                   )}
                 >
-                  Relative
+                  Auto
                 </button>
               </div>
               <p className='text-[10px] text-muted-foreground px-1 leading-tight'>
                 {keepDelayConsistent
-                  ? 'Scale is fixed to the sensitivity setting below.'
-                  : 'Scale adapts to the maximum delay in the current view.'}
+                  ? 'Advanced: scale is fixed to the sensitivity setting below, independent of what you have selected.'
+                  : 'Auto: scale adapts to the largest aggregated delay in your current selection.'}
               </p>
             </div>
 

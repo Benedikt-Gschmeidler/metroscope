@@ -234,7 +234,7 @@ export const DelayLegend = memo(function DelayLegend({
           Delay Scale
         </span>
         <span className='text-[9px] text-muted-foreground px-1.5 -mt-1'>
-          {scaleMode === 'absolute' ? 'Fixed (Clamped)' : 'Dynamic (Local)'}
+          {scaleMode === 'absolute' ? 'Advanced (Fixed)' : 'Auto (Adaptive)'}
         </span>
       </div>
 
