@@ -291,7 +291,10 @@ export default function MetaPanel({
                         />
                       </div>
                     </TooltipTrigger>
-                    <TooltipContent>Adjust base width</TooltipContent>
+                    <TooltipContent>
+                      The minimum line thickness, used wherever there is no
+                      delay. Every line renders at least this wide.
+                    </TooltipContent>
                   </Tooltip>
                 </div>
 
@@ -347,7 +350,11 @@ export default function MetaPanel({
                       </div>
                     </TooltipTrigger>
                     <TooltipContent>
-                      Higher sensitivity makes smaller delays appear larger
+                      Sets &#964; (tau): the delay, in minutes, that maps to
+                      maximum line width in Advanced mode. Delays beyond
+                      &#964; still render at max width, with a hatch pattern.
+                      Higher sensitivity means a lower &#964;, so smaller
+                      delays reach full width sooner.
                     </TooltipContent>
                   </Tooltip>
 
