@@ -18,7 +18,7 @@ import { DatasetMap, processRawData, RenderState } from '@/data/delayData'
 import {
   TIME_RANGE,
 } from '@/lib/constants'
-import { Granularity, TimeSelection } from './Timeline/types'
+import { Granularity, TimeSelection, getSegmentForGranularity } from './Timeline/types'
 import {
   stationMap,
   connectionMap,
@@ -246,6 +246,23 @@ export default function MetroMap({ topology }: MetroMapProps) {
     setHoveredLine(undefined)
     setCurrentTimeSelection(DEFAULT_TIME_SELECTION)
     setSelectionMode('range')
+  }, [])
+
+  const handleGranularityChange = useCallback((newGranularity: Granularity) => {
+    setGranularity(newGranularity)
+
+    setCurrentTimeSelection((prev) => {
+      if (!prev || prev.mode !== 'range') return prev
+
+      const referenceTime = new Date(
+        (prev.start.getTime() + prev.end.getTime()) / 2,
+      )
+      const { start, end } = getSegmentForGranularity(
+        referenceTime,
+        newGranularity,
+      )
+      return { mode: 'range', start, end }
+    })
   }, [])
 
   const postMessageThrottled = useRef(
@@ -518,7 +535,7 @@ export default function MetroMap({ topology }: MetroMapProps) {
               granularity={granularity}
               selectionMode={selectionMode}
               isTimelinePlaying={isTimelinePlaying}
-              onGranularityChange={setGranularity}
+              onGranularityChange={handleGranularityChange}
               onSelectionModeChange={setSelectionMode}
               onClickTimelinePlay={toggleTimelinePlay}
               currentTimeSelection={currentTimeSelection}

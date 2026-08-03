@@ -62,6 +62,22 @@ export const sizeScale = (granularity: Granularity) => {
     .clamp(true)
 }
 
+export function getSegmentForGranularity(
+  date: Date,
+  granularity: Granularity
+): { start: Date; end: Date } {
+  const interval =
+    granularity === 'month'
+      ? d3.timeMonth
+      : granularity === 'week'
+        ? d3.timeWeek
+        : d3.timeDay
+
+  const start = interval.floor(date)
+  const end = interval.offset(start, 1)
+  return { start, end }
+}
+
 export function mapApiDataToEvents(
   apiData: DelaySummaryData[],
   granularity: Granularity
