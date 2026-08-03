@@ -245,6 +245,7 @@ export default function MetroMap({ topology }: MetroMapProps) {
     setSelectedLines([])
     setPinnedLineIds(new Set())
     setHoveredLine(undefined)
+    setHoveredStation({ id: null, source: 'map' })
     setCurrentTimeSelection(DEFAULT_TIME_SELECTION)
     setSelectionMode('range')
   }, [])

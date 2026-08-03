@@ -47,7 +47,7 @@ export interface TimeSegment {
 }
 
 export interface DelaySummaryData {
-  totalDelayMinutes: number
+  maxDelayMinutes: number
   lineColor: string
   gridX: number
   gridY: number
@@ -89,7 +89,7 @@ export function mapApiDataToEvents(
     return {
       x: xPos || (1000 / (itemCount + 1)) * (i + 1),
       y: yPos || 500,
-      size: sizeScale(granularity)(lineData.totalDelayMinutes),
+      size: sizeScale(granularity)(lineData.maxDelayMinutes),
       color: lineData.lineColor,
       lineId: lineData.lineId,
     }

@@ -146,7 +146,7 @@ export const useTimelineData = (
             })
 
             return {
-              totalDelayMinutes: maxDelay,
+              maxDelayMinutes: maxDelay,
               lineColor: meta.color,
               gridX: meta.avgX,
               gridY: meta.avgY,
