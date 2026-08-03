@@ -8,6 +8,7 @@ export const Station = memo(
     isHovered,
     textData,
     stationToLineIds,
+    stationDivergence,
     isDraggingRef,
 
     onHoverStation,
@@ -16,8 +17,10 @@ export const Station = memo(
     onClickLine,
   }: StationProps) => {
     const stationId = station.id
-    const lineCount = stationToLineIds.get(stationId)?.size ?? 1
-    const baseRadius = STATION_RADIUS * (1 + Math.log2(Math.max(1, lineCount)))
+    const divergence = stationDivergence.get(stationId) ?? 2
+    const extraDirections = Math.max(0, divergence - 2)
+    const baseRadius =
+      STATION_RADIUS * (1 + Math.log2(1 + extraDirections))
     const currentRadius = isHovered ? baseRadius * 1.8 : baseRadius
 
     const handleMouseEnter = () => {

@@ -10,6 +10,7 @@ export const StationsLayer = memo(
     hoveredStationId,
 
     stationToLineIds,
+    stationDivergence,
     onHoverLine,
     onHoverEndLine,
     onClickLine,
@@ -30,6 +31,7 @@ export const StationsLayer = memo(
               isHovered={isStationHovered}
               textData={textData}
               stationToLineIds={stationToLineIds}
+              stationDivergence={stationDivergence}
               isDraggingRef={isDraggingRef}
               onHoverStation={onHoverStation}
               onHoverLine={onHoverLine}

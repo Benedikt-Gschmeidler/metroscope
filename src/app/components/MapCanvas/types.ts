@@ -60,6 +60,7 @@ export interface StationsLayerProps {
   stationTextData: Map<string, StationTextData>
   hoveredStationId: string | null
   stationToLineIds: Map<string, Set<string>>
+  stationDivergence: Map<string, number>
   onHoverLine: (lineId: string | null) => void
   onHoverEndLine: (lineId: string | null) => void
   onClickLine: (lineId: string | null) => void
@@ -72,6 +73,7 @@ export interface StationProps {
   isHovered: boolean
   textData: StationTextData
   stationToLineIds: Map<string, Set<string>>
+  stationDivergence: Map<string, number>
   isDraggingRef?: React.MutableRefObject<boolean>
   onHoverStation?: (stationId: string | null) => void
   onHoverLine: (lineId: string) => void
