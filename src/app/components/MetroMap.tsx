@@ -100,6 +100,12 @@ interface MetroMapProps {
   topology: Topology
 }
 
+const DEFAULT_TIME_SELECTION: TimeSelection = {
+  mode: 'range',
+  start: TIME_RANGE.min,
+  end: new Date(new Date(TIME_RANGE.min).setMonth(TIME_RANGE.min.getMonth() + 1)),
+}
+
 export default function MetroMap({ topology }: MetroMapProps) {
   const [hoveredLine, setHoveredLine] = useState<Line | undefined>(undefined)
   const [hoveredStation, setHoveredStation] = useState<{
@@ -143,11 +149,7 @@ export default function MetroMap({ topology }: MetroMapProps) {
   })
 
   const [currentTimeSelection, setCurrentTimeSelection] =
-    useState<TimeSelection>({
-      mode: 'range',
-      start: TIME_RANGE.min,
-      end: new Date(new Date(TIME_RANGE.min).setMonth(TIME_RANGE.min.getMonth() + 1)),
-    })
+    useState<TimeSelection>(DEFAULT_TIME_SELECTION)
 
   const mousePos = useRef({ x: 0, y: 0 })
 
@@ -236,6 +238,13 @@ export default function MetroMap({ topology }: MetroMapProps) {
   const handleDragStart = useCallback(() => {
     setHoveredLine(undefined)
     setHoveredStation({ id: null, source: 'map' })
+  }, [])
+
+  const handleResetSelection = useCallback(() => {
+    setSelectedLines([])
+    setPinnedLineIds(new Set())
+    setHoveredLine(undefined)
+    setCurrentTimeSelection(DEFAULT_TIME_SELECTION)
   }, [])
 
   const postMessageThrottled = useRef(
@@ -517,6 +526,7 @@ export default function MetroMap({ topology }: MetroMapProps) {
               onFocusMatchChange={setIsFocusMatchEnabled}
               speed={playbackSpeed}
               onSpeedChange={setPlaybackSpeed}
+              onReset={handleResetSelection}
               className='pointer-events-auto'
             />
             <DelayLegend

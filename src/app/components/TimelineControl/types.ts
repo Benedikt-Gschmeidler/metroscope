@@ -22,6 +22,7 @@ export interface TimelineControlProps {
   isFocusMatchEnabled: boolean
   speed: number
   onSpeedChange: (speed: number) => void
+  onReset: () => void
 }
 
 export interface SelectionModeControlProps {

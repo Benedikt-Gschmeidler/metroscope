@@ -6,6 +6,7 @@ import {
   Pause,
   Maximize2,
   Minimize2,
+  RotateCcw,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Calendar as UI_Calendar } from '@/components/ui/calendar'
@@ -44,6 +45,7 @@ export function TimelineControl({
   onFocusMatchChange,
   speed,
   onSpeedChange,
+  onReset,
 }: TimelineControlProps) {
   const [date, setDate] = React.useState<Date | undefined>(
     currentTimeSelection?.mode === 'point'
@@ -220,6 +222,20 @@ export function TimelineControl({
               </TooltipTrigger>
               <TooltipContent>
                 <p>{isTimelinePlaying ? 'Pause timeline' : 'Play timeline'}</p>
+              </TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  onClick={onReset}
+                  className='h-9 w-9 rounded-lg bg-muted hover:bg-muted/70 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors shrink-0'
+                >
+                  <RotateCcw className='h-4 w-4' />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Reset selection</p>
               </TooltipContent>
             </Tooltip>
 
