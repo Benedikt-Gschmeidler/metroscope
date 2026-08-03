@@ -66,19 +66,9 @@ export const DelayLegend = memo(function DelayLegend({
   }
 
   const maxDelayLine = useMemo(() => {
-    if (maxDelay.delay <= 0) return undefined
-    if (maxDelay.lineId) {
-      const line = topology.lines.find((l) => l.id === maxDelay.lineId)
-      if (line) return line
-    }
-    for (const [key, value] of renderState.delays.entries()) {
-      if (Math.abs(value - maxDelay.delay) < 0.001) {
-        const lineId = key.split('::')[0]
-        return topology.lines.find((l) => l.id === lineId)
-      }
-    }
-    return undefined
-  }, [maxDelay, renderState.delays, topology.lines])
+    if (maxDelay.delay <= 0 || !maxDelay.lineId) return undefined
+    return topology.lines.find((l) => l.id === maxDelay.lineId)
+  }, [maxDelay, topology.lines])
 
   const items: LegendItem[] = []
 

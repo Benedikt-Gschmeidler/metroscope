@@ -84,7 +84,7 @@ export const getDelaysForWindow = (
     delays.set(locationId, val)
 
     if (val > maxDelay.delay) {
-      maxDelay = { delay: val, lineId: locationId }
+      maxDelay = { delay: val, lineId: locationId.split('::')[0] }
     }
   }
 
@@ -111,7 +111,7 @@ export const getDelaysForPoint = (
     delays.set(locationId, delay)
 
     if (delay > maxDelay.delay) {
-      maxDelay = { delay, lineId: locationId }
+      maxDelay = { delay, lineId: locationId.split('::')[0] }
     }
   }
 

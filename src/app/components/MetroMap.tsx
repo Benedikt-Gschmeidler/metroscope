@@ -530,7 +530,10 @@ export default function MetroMap({ topology }: MetroMapProps) {
               className='pointer-events-auto'
             />
             <DelayLegend
-              maxDelay={{ delay: effectiveDelayCutoff, lineId: '' }}
+              maxDelay={{
+                delay: effectiveDelayCutoff,
+                lineId: keepDelayConsistent ? '' : renderState.maxDelay.lineId,
+              }}
               zoom={currentZoom}
               hoveredLine={hoveredLine}
               selectedLine={selectedLines[selectedLines.length - 1]}
