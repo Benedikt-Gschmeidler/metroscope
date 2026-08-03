@@ -323,16 +323,23 @@ export function TimelineControl({
                     <p>Change date and time</p>
                   </TooltipContent>
                 </Tooltip>
-                <PopoverContent className='w-auto p-3' align='start'>
+                <PopoverContent
+                  className='w-auto p-3'
+                  align='start'
+                  side='top'
+                  avoidCollisions={false}
+                >
                   {selectionMode === 'point' ? (
                     <div className='space-y-3'>
-                      <UI_Calendar
-                        mode='single'
-                        selected={date}
-                        onSelect={handleDateSelect}
-                        initialFocus
-                        defaultMonth={date}
-                      />
+                      <div style={{ minHeight: '21rem' }}>
+                        <UI_Calendar
+                          mode='single'
+                          selected={date}
+                          onSelect={handleDateSelect}
+                          initialFocus
+                          defaultMonth={date}
+                        />
+                      </div>
                       <input
                         type='time'
                         value={startTime}
@@ -342,16 +349,18 @@ export function TimelineControl({
                     </div>
                   ) : (
                     <div className='space-y-4'>
-                      <UI_Calendar
-                        mode='range'
-                        selected={dateRange}
-                        onSelect={handleRangeSelect}
-                        numberOfMonths={3}
-                        startMonth={new Date(2024, 0)}
-                        endMonth={new Date(2025, 1)}
-                        initialFocus
-                        defaultMonth={dateRange?.from}
-                      />
+                      <div style={{ minHeight: '21rem' }}>
+                        <UI_Calendar
+                          mode='range'
+                          selected={dateRange}
+                          onSelect={handleRangeSelect}
+                          numberOfMonths={3}
+                          startMonth={new Date(2024, 0)}
+                          endMonth={new Date(2025, 1)}
+                          initialFocus
+                          defaultMonth={dateRange?.from}
+                        />
+                      </div>
                       <div className='flex gap-4'>
                         <div className='flex-1 space-y-2'>
                           <label className='text-xs font-medium text-muted-foreground'>
