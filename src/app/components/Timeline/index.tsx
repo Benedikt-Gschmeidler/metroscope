@@ -225,6 +225,7 @@ const Timeline: React.FC<ExtendedTimelineProps> = ({
     if (!container) return
 
     const onWheel = (e: WheelEvent) => {
+      if (e.ctrlKey) return
       const isMostlyVertical = Math.abs(e.deltaY) > Math.abs(e.deltaX)
       if (!isMostlyVertical) return
 
