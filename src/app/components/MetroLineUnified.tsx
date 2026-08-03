@@ -514,8 +514,9 @@ function MetroLineUnified({
           result.splice(result.length - 1, 1)
           const pMinus1 = points[i - 1]
 
-          const prev = getPointOnLineXAway(p0.position, pMinus1.position, 1.5)
-          const next = getPointOnLineXAway(p0.position, p1.position, 1.5)
+          const cornerRadius = Math.max(1.5, p0.overflowWidth * 0.75)
+          const prev = getPointOnLineXAway(p0.position, pMinus1.position, cornerRadius)
+          const next = getPointOnLineXAway(p0.position, p1.position, cornerRadius)
 
           const prevPoint: PathPoint = {
             position: prev,
