@@ -124,7 +124,7 @@ export default function MetroMap({ topology }: MetroMapProps) {
     maxY: number
   } | null>(null)
   const [currentZoom, setCurrentZoom] = useState(1)
-  const [playbackSpeed, setPlaybackSpeed] = useState(1)
+  const [playbackSpeed, setPlaybackSpeed] = useState(2)
   const [isTimelinePlaying, setIsTimelinePlaying] = useState(false)
   const [isCtrlHeld, setIsCtrlHeld] = useState(false)
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false)

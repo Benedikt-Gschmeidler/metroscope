@@ -11,8 +11,6 @@ interface SpeedControlProps {
 }
 
 export const SpeedControl = React.memo<SpeedControlProps>(({ isExpanded, speed, onSpeedChange }) => {
-  const secondsPerDay = 1 / speed
-
   const presets = [
     { label: '0.5x', value: 0.5 },
     { label: '1x', value: 1.0 },
@@ -39,15 +37,13 @@ export const SpeedControl = React.memo<SpeedControlProps>(({ isExpanded, speed, 
 
   const sliderValue = getSliderValue(speed)
 
-  const [minimizedInput, setMinimizedInput] = React.useState(
-      secondsPerDay < 0.1 ? secondsPerDay.toFixed(2) : secondsPerDay.toFixed(1)
-  )
+  const [minimizedInput, setMinimizedInput] = React.useState(speed.toFixed(1))
   const [isFocused, setIsFocused] = React.useState(false)
-  
+
   React.useEffect(() => {
      if (isFocused) return
-     setMinimizedInput(secondsPerDay < 0.1 ? secondsPerDay.toFixed(2) : secondsPerDay.toFixed(1))
-  }, [secondsPerDay, isFocused])
+     setMinimizedInput(speed.toFixed(1))
+  }, [speed, isFocused])
 
   const handleMinimizedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       setMinimizedInput(e.target.value)
@@ -57,9 +53,9 @@ export const SpeedControl = React.memo<SpeedControlProps>(({ isExpanded, speed, 
       setIsFocused(false)
       const val = parseFloat(minimizedInput)
       if (!isNaN(val) && val > 0) {
-          onSpeedChange(1 / val)
+          onSpeedChange(Math.max(MIN_SPEED, Math.min(MAX_SPEED, val)))
       } else {
-          setMinimizedInput(secondsPerDay < 0.1 ? secondsPerDay.toFixed(2) : secondsPerDay.toFixed(1))
+          setMinimizedInput(speed.toFixed(1))
       }
   }
 
@@ -81,7 +77,7 @@ export const SpeedControl = React.memo<SpeedControlProps>(({ isExpanded, speed, 
           <>
             Animation Speed{' '}
             <span className='font-normal text-muted-foreground/70'>
-              ({secondsPerDay < 0.1 ? secondsPerDay.toFixed(2) : secondsPerDay.toFixed(1)}s/day)
+              ({speed.toFixed(1)}x)
             </span>
           </>
         ) : (
@@ -106,7 +102,7 @@ export const SpeedControl = React.memo<SpeedControlProps>(({ isExpanded, speed, 
                     onBlur={handleBlur}
                     onKeyDown={(e) => e.stopPropagation()} 
                 />
-                 <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-muted-foreground pointer-events-none">s</span>
+                 <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-muted-foreground pointer-events-none">x</span>
             </div>
          )}
 
