@@ -1308,6 +1308,278 @@ git commit -m "fix: make country border visible using its intended stroke color"
 
 ---
 
+### Task 11: Speed preset dropdown (replace collapsed free-text input)
+
+**Files:**
+- Modify: `src/app/components/SpeedControl.tsx`
+
+**Interfaces:** No prop/type changes — `SpeedControlProps` stays
+`{ isExpanded: boolean; speed: number; onSpeedChange: (value: number) => void }`.
+
+Follow-up requested after Task 1 landed: the collapsed view currently
+shows a free-text number input for speed. Replace it with a `Select`
+dropdown of labeled presets, matching the same collapsed-`Select` pattern
+already used by `GranularityControl` and `FocusMatchControl` elsewhere in
+this app (`@/components/ui/select`'s `Select`/`SelectTrigger`/
+`SelectContent`/`SelectItem`/`SelectValue`). The expanded view's slider and
+badges are unchanged — they remain the fine-grained control.
+
+- [ ] **Step 1: Add descriptions to the existing presets and drop the
+  now-unused free-text state**
+
+In `src/app/components/SpeedControl.tsx`, replace:
+
+```tsx
+export const SpeedControl = React.memo<SpeedControlProps>(({ isExpanded, speed, onSpeedChange }) => {
+  const presets = [
+    { label: '0.5x', value: 0.5 },
+    { label: '1x', value: 1.0 },
+    { label: '2x', value: 2.0 },
+    { label: '4x', value: 4.0 },
+  ]
+
+  const MIN_SPEED = 0.1
+  const MAX_SPEED = 10
+
+  const getSliderValue = (val: number) => {
+    const logMin = Math.log(MIN_SPEED)
+    const logMax = Math.log(MAX_SPEED)
+    const logVal = Math.log(Math.max(MIN_SPEED, Math.min(MAX_SPEED, val)))
+    return ((logVal - logMin) / (logMax - logMin)) * 100
+  }
+
+  const getSpeedValue = (sliderVal: number) => {
+    const t = sliderVal / 100
+    const logMin = Math.log(MIN_SPEED)
+    const logMax = Math.log(MAX_SPEED)
+    return Math.exp(logMin + t * (logMax - logMin))
+  }
+
+  const sliderValue = getSliderValue(speed)
+
+  const [minimizedInput, setMinimizedInput] = React.useState(speed.toFixed(1))
+  const [isFocused, setIsFocused] = React.useState(false)
+
+  React.useEffect(() => {
+     if (isFocused) return
+     setMinimizedInput(speed.toFixed(1))
+  }, [speed, isFocused])
+
+  const handleMinimizedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setMinimizedInput(e.target.value)
+  }
+
+  const handleBlur = () => {
+      setIsFocused(false)
+      const val = parseFloat(minimizedInput)
+      if (!isNaN(val) && val > 0) {
+          onSpeedChange(Math.max(MIN_SPEED, Math.min(MAX_SPEED, val)))
+      } else {
+          setMinimizedInput(speed.toFixed(1))
+      }
+  }
+```
+
+with:
+
+```tsx
+export const SpeedControl = React.memo<SpeedControlProps>(({ isExpanded, speed, onSpeedChange }) => {
+  const presets = [
+    { label: '0.5x', value: 0.5, description: 'Slower' },
+    { label: '1x', value: 1.0, description: 'Normal' },
+    { label: '2x', value: 2.0, description: 'Faster' },
+    { label: '4x', value: 4.0, description: 'Very Fast' },
+  ]
+
+  const MIN_SPEED = 0.1
+  const MAX_SPEED = 10
+
+  const getSliderValue = (val: number) => {
+    const logMin = Math.log(MIN_SPEED)
+    const logMax = Math.log(MAX_SPEED)
+    const logVal = Math.log(Math.max(MIN_SPEED, Math.min(MAX_SPEED, val)))
+    return ((logVal - logMin) / (logMax - logMin)) * 100
+  }
+
+  const getSpeedValue = (sliderVal: number) => {
+    const t = sliderVal / 100
+    const logMin = Math.log(MIN_SPEED)
+    const logMax = Math.log(MAX_SPEED)
+    return Math.exp(logMin + t * (logMax - logMin))
+  }
+
+  const sliderValue = getSliderValue(speed)
+
+  const closestPreset = presets.reduce(
+    (closest, p) =>
+      Math.abs(speed - p.value) < Math.abs(speed - closest.value) ? p : closest,
+    presets[0],
+  )
+```
+
+(`minimizedInput`, `isFocused`, `handleMinimizedChange`, `handleBlur`, and
+the `useEffect` syncing them are all deleted — the collapsed view no
+longer has free-text entry, so none of this state is needed anymore.
+`closestPreset` finds whichever preset is numerically nearest to the
+current `speed`, so the dropdown always shows a sensible selected label
+even if `speed` was fine-tuned to a non-preset value via the expanded
+slider.)
+
+- [ ] **Step 2: Add the Select import**
+
+At the top of the file, add to the existing imports:
+
+```tsx
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+```
+
+- [ ] **Step 3: Replace the collapsed free-text input with the Select dropdown**
+
+Replace:
+
+```tsx
+         {!isExpanded && (
+            <div className='relative w-full h-full'>
+                <input
+                    type="number"
+                    min="0.1"
+                    step="0.1"
+                    className="w-full h-full bg-muted/50 border border-border/50 rounded-lg text-xs font-medium text-center focus:outline-none focus:ring-1 focus:ring-primary px-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    value={minimizedInput}
+                    onChange={handleMinimizedChange}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={handleBlur}
+                    onKeyDown={(e) => e.stopPropagation()} 
+                />
+                 <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-muted-foreground pointer-events-none">x</span>
+            </div>
+         )}
+```
+
+with:
+
+```tsx
+         {!isExpanded && (
+            <Select
+                value={String(closestPreset.value)}
+                onValueChange={(v) => onSpeedChange(parseFloat(v))}
+            >
+                <SelectTrigger className='w-full h-9 text-xs'>
+                    <div className='flex items-center gap-2'>
+                        <Zap className='h-3.5 w-3.5' />
+                        <SelectValue />
+                    </div>
+                </SelectTrigger>
+                <SelectContent>
+                    {presets.map((preset) => (
+                        <SelectItem key={preset.label} value={String(preset.value)}>
+                            {preset.label} — {preset.description}
+                        </SelectItem>
+                    ))}
+                </SelectContent>
+            </Select>
+         )}
+```
+
+The `{isExpanded && (...)}` block (slider + badges) directly below is
+unchanged.
+
+- [ ] **Step 4: Type-check and lint**
+
+Run: `npx tsc --noEmit` — expect no new errors (in particular, confirm no
+"unused variable" errors for the deleted free-text state).
+Run: `pnpm lint` — expect no new errors in `SpeedControl.tsx`.
+
+- [ ] **Step 5: Manual verification**
+
+With `pnpm dev` running:
+1. Collapse the timeline controls. The Speed control should now show a
+   dropdown reading one of "0.5x — Slower", "1x — Normal", "2x — Faster",
+   "4x — Very Fast" (whichever is closest to the current speed).
+2. Open the dropdown and pick "4x — Very Fast" — confirm playback speed
+   changes accordingly, and expanding the controls shows the slider/badge
+   at the 4x position.
+3. Expand the controls, drag the slider to an arbitrary value (e.g. 6x),
+   then collapse again — confirm the dropdown now shows whichever preset
+   is numerically closest to 6x (should be "4x — Very Fast", since 6 is
+   closer to 4 than to any higher value the slider allows, given presets
+   top out at 4x).
+
+- [ ] **Step 6: Commit**
+
+```bash
+git add src/app/components/SpeedControl.tsx
+git commit -m "feat: replace collapsed speed input with a labeled preset dropdown"
+```
+
+---
+
+### Task 12: Extend the delay-duration formatter with a days tier
+
+**Files:**
+- Modify: `src/lib/metro-utils.ts`
+
+**Interfaces:** `formatDelayDuration(minutes: number): string` keeps its
+signature — only its internal thresholds change.
+
+Follow-up requested after Task 5 landed: accumulated delays can reach
+hundreds of hours (e.g. a busy month at a major junction), and "312.0h" is
+harder to read than "13.0d". Add a third tier: durations of 24 hours
+(1440 minutes) or more format as days.
+
+- [ ] **Step 1: Add the days tier**
+
+In `src/lib/metro-utils.ts`, replace:
+
+```ts
+export const formatDelayDuration = (minutes: number): string => {
+  if (minutes < 60) return `${minutes.toFixed(0)} min`
+  return `${(minutes / 60).toFixed(1)}h`
+}
+```
+
+with:
+
+```ts
+export const formatDelayDuration = (minutes: number): string => {
+  if (minutes < 60) return `${minutes.toFixed(0)} min`
+  if (minutes < 1440) return `${(minutes / 60).toFixed(1)}h`
+  return `${(minutes / 1440).toFixed(1)}d`
+}
+```
+
+(1440 = 24 × 60 minutes in a day. No call sites change — every existing
+consumer of `formatDelayDuration` from Task 5 — `DelayLegend.tsx`,
+`SingleLinePanel.tsx` — picks up the new tier automatically.)
+
+- [ ] **Step 2: Type-check and lint**
+
+Run: `npx tsc --noEmit` — expect no new errors.
+Run: `pnpm lint` — expect no new errors in `metro-utils.ts`.
+
+- [ ] **Step 3: Manual verification**
+
+With `pnpm dev` running, find a view with a large aggregated delay (a busy
+month at a well-connected station) — confirm the DelayLegend/InfoPanel now
+shows something like `"13.0d"` instead of `"312.0h"` once the value crosses
+24 hours (1440 minutes), while values between 1h and 24h still show as
+`"X.Xh"`, and values under 1h still show as `"X min"`.
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add src/lib/metro-utils.ts
+git commit -m "feat: format multi-day accumulated delays in days instead of hours"
+```
+
+---
+
 ## Final verification (after all tasks)
 
 - [ ] Run `npx tsc --noEmit` once more over the whole repo — expect no
