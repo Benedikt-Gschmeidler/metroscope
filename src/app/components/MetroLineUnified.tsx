@@ -511,22 +511,8 @@ function MetroLineUnified({
           result.splice(result.length - 1, 1)
           const pMinus1 = points[i - 1]
 
-          const distPrev = Math.hypot(
-            p0.position.x - pMinus1.position.x,
-            p0.position.y - pMinus1.position.y,
-          )
-          const distNext = Math.hypot(
-            p1.position.x - p0.position.x,
-            p1.position.y - p0.position.y,
-          )
-          const desiredRadius = Math.max(1.5, p0.overflowWidth * 0.75)
-          const cornerRadius = Math.min(
-            desiredRadius,
-            distPrev * 0.4,
-            distNext * 0.4,
-          )
-          const prev = getPointOnLineXAway(p0.position, pMinus1.position, cornerRadius)
-          const next = getPointOnLineXAway(p0.position, p1.position, cornerRadius)
+          const prev = getPointOnLineXAway(p0.position, pMinus1.position, 1.5)
+          const next = getPointOnLineXAway(p0.position, p1.position, 1.5)
 
           const prevPoint: PathPoint = {
             position: prev,
