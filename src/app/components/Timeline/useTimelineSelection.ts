@@ -111,7 +111,12 @@ export const useTimelineSelection = (
         ])
         .on('start', (event) => {
           isBrushingRef.current = true
-          if (isPlayingRef.current) onInteractionStartRef.current?.()
+          // event.sourceEvent is null for programmatic brush.move() calls
+          // (e.g. the effect below re-syncing the visual brush position
+          // when playback starts) -- only a real user gesture should pause
+          // playback, or pressing Play would immediately pause itself.
+          if (event.sourceEvent && isPlayingRef.current)
+            onInteractionStartRef.current?.()
           if (onBrushInteractionRef.current)
             onBrushInteractionRef.current.start()
           if (event.sourceEvent) {
