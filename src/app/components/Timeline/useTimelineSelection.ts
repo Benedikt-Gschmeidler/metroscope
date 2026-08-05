@@ -19,7 +19,8 @@ export const useTimelineSelection = (
     start: () => void
     update: (start: Date, end: Date, x0: number, x1: number) => void
     end: () => void
-  }
+  },
+  onInteractionStart?: () => void,
 ) => {
   const interactionLayerRef = useRef<d3.Selection<
     SVGGElement,
@@ -44,6 +45,7 @@ export const useTimelineSelection = (
   const onSelectionChangeRef = useRef(onSelectionChange)
   const setCurrentSelectionRef = useRef(setCurrentSelection)
   const onBrushInteractionRef = useRef(onBrushInteraction)
+  const onInteractionStartRef = useRef(onInteractionStart)
   const currentSelectionRef = useRef(currentSelection)
   const isPlayingRef = useRef(isPlaying)
 
@@ -51,9 +53,10 @@ export const useTimelineSelection = (
     onSelectionChangeRef.current = onSelectionChange
     setCurrentSelectionRef.current = setCurrentSelection
     onBrushInteractionRef.current = onBrushInteraction
+    onInteractionStartRef.current = onInteractionStart
     currentSelectionRef.current = currentSelection
     isPlayingRef.current = isPlaying
-  }, [onSelectionChange, setCurrentSelection, onBrushInteraction, currentSelection, isPlaying])
+  }, [onSelectionChange, setCurrentSelection, onBrushInteraction, onInteractionStart, currentSelection, isPlaying])
 
   const snapToClosestSegment = useCallback((clickTime: Date) => {
     const segments = allSegmentsRef.current
@@ -108,6 +111,7 @@ export const useTimelineSelection = (
         ])
         .on('start', (event) => {
           isBrushingRef.current = true
+          if (isPlayingRef.current) onInteractionStartRef.current?.()
           if (onBrushInteractionRef.current)
             onBrushInteractionRef.current.start()
           if (event.sourceEvent) {
@@ -209,6 +213,7 @@ export const useTimelineSelection = (
         .style('fill', 'none')
         .style('pointer-events', 'all')
         .on('click', (event) => {
+          if (isPlayingRef.current) onInteractionStartRef.current?.()
           const [x] = d3.pointer(event)
           const newSelection = {
             mode: 'point' as const,

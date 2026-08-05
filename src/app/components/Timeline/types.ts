@@ -15,6 +15,7 @@ export interface TimelineProps {
   height?: number
   onSelectionChange: (selection: TimeSelection | null) => void
   isPlaying: boolean
+  onInteractionStart?: () => void
   timelineSpeed: number
   selection?: TimeSelection | null
   dataset: DatasetMap | null

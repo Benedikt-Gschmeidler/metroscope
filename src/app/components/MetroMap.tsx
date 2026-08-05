@@ -15,10 +15,7 @@ import MetaPanel from './MetaPanel'
 import { SelectionMode, TimelineControl } from './TimelineControl'
 import { DelayLegend } from './DelayLegend'
 import { DatasetMap, processRawData, RenderState } from '@/data/delayData'
-import {
-  TIME_RANGE,
-  SENSITIVITY_PRESETS,
-} from '@/lib/constants'
+import { TIME_RANGE } from '@/lib/constants'
 import { Granularity, TimeSelection, getSegmentForGranularity } from './Timeline/types'
 import {
   stationMap,
@@ -203,9 +200,17 @@ export default function MetroMap({ topology }: MetroMapProps) {
     }
   }, [])
 
+  // Clicking or dragging on the map or timeline while the animation is
+  // playing should pause it, rather than fighting the user's interaction
+  // (the animation loop would otherwise keep overwriting their selection).
+  const handlePlaybackInteraction = useCallback(() => {
+    setIsTimelinePlaying((prev) => (prev ? false : prev))
+  }, [])
+
   const handleLineClick = useCallback(
     (lineId: string | null) => {
       if (!lineId) return
+      handlePlaybackInteraction()
       const line = topology.lines.find((l) => l.id === lineId)
       if (line) {
         setSelectedLines((prev) => {
@@ -214,7 +219,7 @@ export default function MetroMap({ topology }: MetroMapProps) {
         })
       }
     },
-    [topology.lines],
+    [topology.lines, handlePlaybackInteraction],
   )
 
   const handleLineHover = useCallback(
@@ -237,9 +242,10 @@ export default function MetroMap({ topology }: MetroMapProps) {
   )
 
   const handleDragStart = useCallback(() => {
+    handlePlaybackInteraction()
     setHoveredLine(undefined)
     setHoveredStation({ id: null, source: 'map' })
-  }, [])
+  }, [handlePlaybackInteraction])
 
   const handleResetSelection = useCallback(() => {
     setSelectedLines([])
@@ -252,7 +258,11 @@ export default function MetroMap({ topology }: MetroMapProps) {
 
   const handleGranularityChange = useCallback((newGranularity: Granularity) => {
     setGranularity(newGranularity)
-    setDelayCutoff(SENSITIVITY_PRESETS[newGranularity])
+    // Sensitivity (delayCutoff) is intentionally left untouched here -- it's
+    // a separate, user-owned setting. The "Recommended Presets Per
+    // Granularity" badges in the settings panel let users apply one on
+    // purpose; switching granularity shouldn't silently overwrite a value
+    // they've hand-tuned.
 
     setCurrentTimeSelection((prev) => {
       if (!prev || prev.mode !== 'range') return prev
@@ -664,6 +674,7 @@ export default function MetroMap({ topology }: MetroMapProps) {
             selection={currentTimeSelection}
             onSelectionChange={handleSelectionChange}
             isPlaying={isTimelinePlaying}
+            onInteractionStart={handlePlaybackInteraction}
             timelineSpeed={1000 * 60 * 60 * 24 * playbackSpeed}
             dataset={dataset}
             topology={topology}
