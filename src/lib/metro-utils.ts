@@ -108,3 +108,9 @@ export const getNiceSteps = (max: number) => {
     .filter((val) => val !== undefined && val > 0)
     .sort((a, b) => b - a)
 }
+
+export const formatDelayDuration = (minutes: number): string => {
+  if (minutes < 60) return `${minutes.toFixed(0)} min`
+  if (minutes < 1440) return `${(minutes / 60).toFixed(1)}h`
+  return `${(minutes / 1440).toFixed(1)}d`
+}

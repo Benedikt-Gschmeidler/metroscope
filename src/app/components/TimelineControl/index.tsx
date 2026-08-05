@@ -6,6 +6,7 @@ import {
   Pause,
   Maximize2,
   Minimize2,
+  RotateCcw,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Calendar as UI_Calendar } from '@/components/ui/calendar'
@@ -44,6 +45,7 @@ export function TimelineControl({
   onFocusMatchChange,
   speed,
   onSpeedChange,
+  onReset,
 }: TimelineControlProps) {
   const [date, setDate] = React.useState<Date | undefined>(
     currentTimeSelection?.mode === 'point'
@@ -223,6 +225,20 @@ export function TimelineControl({
               </TooltipContent>
             </Tooltip>
 
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  onClick={onReset}
+                  className='h-9 w-9 rounded-lg bg-muted hover:bg-muted/70 text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors shrink-0'
+                >
+                  <RotateCcw className='h-4 w-4' />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Reset selection</p>
+              </TooltipContent>
+            </Tooltip>
+
             <SelectionModeControl
               isExpanded={isMobile ? false : isExpanded}
               selectionMode={selectionMode}
@@ -323,16 +339,23 @@ export function TimelineControl({
                     <p>Change date and time</p>
                   </TooltipContent>
                 </Tooltip>
-                <PopoverContent className='w-auto p-3' align='start'>
+                <PopoverContent
+                  className='w-auto p-3'
+                  align='start'
+                  side='top'
+                  avoidCollisions={false}
+                >
                   {selectionMode === 'point' ? (
                     <div className='space-y-3'>
-                      <UI_Calendar
-                        mode='single'
-                        selected={date}
-                        onSelect={handleDateSelect}
-                        initialFocus
-                        defaultMonth={date}
-                      />
+                      <div style={{ minHeight: '21rem' }}>
+                        <UI_Calendar
+                          mode='single'
+                          selected={date}
+                          onSelect={handleDateSelect}
+                          initialFocus
+                          defaultMonth={date}
+                        />
+                      </div>
                       <input
                         type='time'
                         value={startTime}
@@ -342,16 +365,18 @@ export function TimelineControl({
                     </div>
                   ) : (
                     <div className='space-y-4'>
-                      <UI_Calendar
-                        mode='range'
-                        selected={dateRange}
-                        onSelect={handleRangeSelect}
-                        numberOfMonths={3}
-                        startMonth={new Date(2024, 0)}
-                        endMonth={new Date(2025, 1)}
-                        initialFocus
-                        defaultMonth={dateRange?.from}
-                      />
+                      <div style={{ minHeight: '21rem' }}>
+                        <UI_Calendar
+                          mode='range'
+                          selected={dateRange}
+                          onSelect={handleRangeSelect}
+                          numberOfMonths={3}
+                          startMonth={new Date(2024, 0)}
+                          endMonth={new Date(2025, 1)}
+                          initialFocus
+                          defaultMonth={dateRange?.from}
+                        />
+                      </div>
                       <div className='flex gap-4'>
                         <div className='flex-1 space-y-2'>
                           <label className='text-xs font-medium text-muted-foreground'>
@@ -429,6 +454,7 @@ export function TimelineControl({
               isExpanded={isExpanded}
               speed={speed}
               onSpeedChange={onSpeedChange}
+              granularity={granularity}
             />
           </div>
         </div>

@@ -15,6 +15,7 @@ export interface TimelineProps {
   height?: number
   onSelectionChange: (selection: TimeSelection | null) => void
   isPlaying: boolean
+  onInteractionStart?: () => void
   timelineSpeed: number
   selection?: TimeSelection | null
   dataset: DatasetMap | null
@@ -47,7 +48,7 @@ export interface TimeSegment {
 }
 
 export interface DelaySummaryData {
-  totalDelayMinutes: number
+  maxDelayMinutes: number
   lineColor: string
   gridX: number
   gridY: number
@@ -62,6 +63,22 @@ export const sizeScale = (granularity: Granularity) => {
     .clamp(true)
 }
 
+export function getSegmentForGranularity(
+  date: Date,
+  granularity: Granularity
+): { start: Date; end: Date } {
+  const interval =
+    granularity === 'month'
+      ? d3.timeMonth
+      : granularity === 'week'
+        ? d3.timeWeek
+        : d3.timeDay
+
+  const start = interval.floor(date)
+  const end = interval.offset(start, 1)
+  return { start, end }
+}
+
 export function mapApiDataToEvents(
   apiData: DelaySummaryData[],
   granularity: Granularity
@@ -73,7 +90,7 @@ export function mapApiDataToEvents(
     return {
       x: xPos || (1000 / (itemCount + 1)) * (i + 1),
       y: yPos || 500,
-      size: sizeScale(granularity)(lineData.totalDelayMinutes),
+      size: sizeScale(granularity)(lineData.maxDelayMinutes),
       color: lineData.lineColor,
       lineId: lineData.lineId,
     }

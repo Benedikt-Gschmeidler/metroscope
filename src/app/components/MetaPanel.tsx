@@ -30,6 +30,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Kbd } from '@/components/ui/kbd'
 import { Badge } from '@/components/ui/badge'
+import { SENSITIVITY_PRESETS } from '@/lib/constants'
 
 
 interface MetaPanelProps {
@@ -43,15 +44,15 @@ interface MetaPanelProps {
 
 const DEFAULT_BASE_THICKNESS = 0.5
 
-const MIN_CUTOFF_MINUTES = 5 
+const MIN_CUTOFF_MINUTES = 5
 const MAX_CUTOFF_MINUTES = 100000
 
 
 
 const UNIFIED_PRESETS = [
-  { label: 'Month', value: 8409, color: 'bg-blue-500' },
-  { label: 'Week', value: 2321, color: 'bg-emerald-500' },
-  { label: 'Day', value: 177, color: 'bg-orange-500' },
+  { label: 'Month', value: SENSITIVITY_PRESETS.month, color: 'bg-blue-500' },
+  { label: 'Week', value: SENSITIVITY_PRESETS.week, color: 'bg-emerald-500' },
+  { label: 'Day', value: SENSITIVITY_PRESETS.day, color: 'bg-orange-500' },
 ]
 
 export default function MetaPanel({
@@ -214,7 +215,7 @@ export default function MetaPanel({
                       : 'text-muted-foreground hover:text-foreground',
                   )}
                 >
-                  Absolute
+                  Advanced
                 </button>
                 <button
                   onClick={() => onKeepDelayConsistentChange(false)}
@@ -225,13 +226,18 @@ export default function MetaPanel({
                       : 'text-muted-foreground hover:text-foreground',
                   )}
                 >
-                  Relative
+                  Auto
                 </button>
               </div>
-              <p className='text-[10px] text-muted-foreground px-1 leading-tight'>
-                {keepDelayConsistent
-                  ? 'Scale is fixed to the sensitivity setting below.'
-                  : 'Scale adapts to the maximum delay in the current view.'}
+              <p className='text-[10px] px-1 leading-relaxed'>
+                <span className='font-semibold text-foreground'>
+                  {keepDelayConsistent ? 'Advanced' : 'Auto'}
+                </span>
+                <span className='text-muted-foreground'>
+                  {keepDelayConsistent
+                    ? ' — the scale is pinned to a fixed threshold, set via the Sensitivity slider below, independent of what you have selected. Use it to compare delay magnitudes consistently across different time windows.'
+                    : " — the scale reshapes itself to the largest aggregated delay in your current selection. Use it to maximize contrast within whatever you're looking at right now."}
+                </span>
               </p>
             </div>
 
@@ -248,6 +254,24 @@ export default function MetaPanel({
                   Visualization Settings
                 </div>
               </div>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className='flex items-center justify-between text-[10px] text-muted-foreground bg-muted/30 rounded-md px-2 py-1.5 cursor-default'>
+                    <span>Snap delay legend to cursor</span>
+                    <div className='flex items-center gap-1 shrink-0'>
+                      <Kbd>Ctrl</Kbd>
+                      <span>+</span>
+                      <span>Move</span>
+                    </div>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  Hold Ctrl and move your mouse over the map to have the
+                  delay legend follow your cursor, so you can read it without
+                  looking away from what you&apos;re hovering.
+                </TooltipContent>
+              </Tooltip>
 
               <div className='space-y-4'>
                 <div className='space-y-3'>
@@ -291,7 +315,10 @@ export default function MetaPanel({
                         />
                       </div>
                     </TooltipTrigger>
-                    <TooltipContent>Adjust base width</TooltipContent>
+                    <TooltipContent>
+                      The minimum line thickness, used wherever there is no
+                      delay. Every line renders at least this wide.
+                    </TooltipContent>
                   </Tooltip>
                 </div>
 
@@ -347,7 +374,11 @@ export default function MetaPanel({
                       </div>
                     </TooltipTrigger>
                     <TooltipContent>
-                      Higher sensitivity makes smaller delays appear larger
+                      Sets &#964; (tau): the delay, in minutes, that maps to
+                      maximum line width in Advanced mode. Delays beyond
+                      &#964; still render at max width, with a hatch pattern.
+                      Higher sensitivity means a lower &#964;, so smaller
+                      delays reach full width sooner.
                     </TooltipContent>
                   </Tooltip>
 

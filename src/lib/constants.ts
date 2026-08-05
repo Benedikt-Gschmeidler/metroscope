@@ -19,9 +19,9 @@ export const MAX_DELAYS_P95 = {
 }
 
 export const MAX_DELAYS_P100 = {
-  day: 279720,
-  week: 279720,
-  month: 538370,
+  day: 32100,
+  week: 32100,
+  month: 61700,
 }
 
 export const MAX_DELAYS_CUSTOM = {
@@ -31,6 +31,12 @@ export const MAX_DELAYS_CUSTOM = {
 }
 
 export const MAX_DELAYS = MAX_DELAYS_CUSTOM
+
+export const SENSITIVITY_PRESETS: Record<'day' | 'week' | 'month', number> = {
+  month: 8409,
+  week: 2321,
+  day: 177,
+}
 
 export const COUNTRY_OUTLINE = {
   strokeWidth: 1.5,

@@ -105,6 +105,7 @@ const Timeline: React.FC<ExtendedTimelineProps> = ({
   height = 120,
   onSelectionChange,
   isPlaying,
+  onInteractionStart,
   timelineSpeed,
   selection,
   dataset,
@@ -220,6 +221,23 @@ const Timeline: React.FC<ExtendedTimelineProps> = ({
     }
   }, [])
 
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    const onWheel = (e: WheelEvent) => {
+      if (e.ctrlKey) return
+      const isMostlyVertical = Math.abs(e.deltaY) > Math.abs(e.deltaX)
+      if (!isMostlyVertical) return
+
+      e.preventDefault()
+      container.scrollLeft += e.deltaY
+    }
+
+    container.addEventListener('wheel', onWheel, { passive: false })
+    return () => container.removeEventListener('wheel', onWheel)
+  }, [])
+
   useTimelineSegments(g, allSegments, xScale, chartHeight)
   useTimelineEventDots(
     g,
@@ -268,7 +286,8 @@ const Timeline: React.FC<ExtendedTimelineProps> = ({
         isDraggingRef.current = false
         tooltipRef.current?.hide()
       },
-    }
+    },
+    onInteractionStart
   )
 
   const currentSelectionRef = useRef<TimeSelection | null>(currentSelection)
@@ -338,6 +357,7 @@ const Timeline: React.FC<ExtendedTimelineProps> = ({
       lastTimestampRef.current = timestamp
       const timeAdvance = dt * timelineSpeed
 
+      const timelineStart = xScale.domain()[0]
       const timelineEnd = xScale.domain()[1]
       const prevSelection = currentSelectionRef.current
 
@@ -349,19 +369,22 @@ const Timeline: React.FC<ExtendedTimelineProps> = ({
       let newSelection: TimeSelection | null = null
 
       if (prevSelection.mode === 'point') {
-        const newTime = new Date(prevSelection.time.getTime() + timeAdvance)
+        let newTime = new Date(prevSelection.time.getTime() + timeAdvance)
+        // Loop back to the start of the timeline instead of freezing at the end.
         if (newTime >= timelineEnd) {
-          return 
+          newTime = new Date(timelineStart.getTime())
         }
         newSelection = { ...prevSelection, time: newTime }
       } else if (prevSelection.mode === 'range') {
         const rangeDuration =
           prevSelection.end.getTime() - prevSelection.start.getTime()
-        const newStart = new Date(prevSelection.start.getTime() + timeAdvance)
-        const newEnd = new Date(newStart.getTime() + rangeDuration)
+        let newStart = new Date(prevSelection.start.getTime() + timeAdvance)
+        let newEnd = new Date(newStart.getTime() + rangeDuration)
 
+        // Loop back to the start of the timeline instead of freezing at the end.
         if (newEnd >= timelineEnd) {
-           return
+          newStart = new Date(timelineStart.getTime())
+          newEnd = new Date(newStart.getTime() + rangeDuration)
         }
         newSelection = { ...prevSelection, start: newStart, end: newEnd }
       }

@@ -138,6 +138,25 @@ const MapCanvas = forwardRef<MapCanvasActions, MapCanvasProps>(
       return map
     }, [topology])
 
+    const stationDivergence = useMemo(() => {
+      const directionsByStation = new Map<string, Set<number>>()
+      topology.connections.forEach((conn) => {
+        const track = conn.tracks[0]
+        if (!track) return
+        if (!directionsByStation.has(conn.stations.from))
+          directionsByStation.set(conn.stations.from, new Set())
+        if (!directionsByStation.has(conn.stations.to))
+          directionsByStation.set(conn.stations.to, new Set())
+        directionsByStation.get(conn.stations.from)!.add(track.from.direction)
+        directionsByStation.get(conn.stations.to)!.add(track.to.direction)
+      })
+      const map = new Map<string, number>()
+      directionsByStation.forEach((directions, stationId) => {
+        map.set(stationId, directions.size)
+      })
+      return map
+    }, [topology])
+
     const stationOffsets = useMemo(() => {
       const offsets = new Map<string, Position>()
       topology.stations.forEach((s) => {
@@ -443,6 +462,7 @@ const MapCanvas = forwardRef<MapCanvasActions, MapCanvasProps>(
             stationTextData={stationTextData}
             hoveredStationId={hoveredStationId || null}
             stationToLineIds={stationToLineIds}
+            stationDivergence={stationDivergence}
             onHoverLine={onHoverLine}
             onHoverEndLine={onHoverEndLine}
             onClickLine={onClickLine}

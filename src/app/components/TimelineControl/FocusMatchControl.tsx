@@ -8,7 +8,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { cn } from '@/lib/utils'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 
 type FocusMatchValue = 'off' | 'on'
 
@@ -28,10 +32,18 @@ export const FocusMatchControl = React.memo<FocusMatchControlProps>(
     if (!isExpanded) {
       return (
         <div className='flex flex-col gap-1.5'>
-          <div className='text-[10px] font-medium text-muted-foreground uppercase tracking-wider flex items-center gap-1.5 h-3.5'>
-            <ScanEye className='h-3 w-3' />
-            Focus Match
-          </div>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div className='text-[10px] font-medium text-muted-foreground uppercase tracking-wider flex items-center gap-1.5 h-3.5 cursor-help w-fit'>
+                <ScanEye className='h-3 w-3' />
+                Focus Match
+              </div>
+            </TooltipTrigger>
+            <TooltipContent>
+              Keeps the timeline&apos;s visible time window synced to
+              whatever the map is currently panned/zoomed to.
+            </TooltipContent>
+          </Tooltip>
           <Select
             value={isFocusMatchEnabled ? 'on' : 'off'}
             onValueChange={(v) => onFocusMatchChange(v === 'on')}
@@ -63,7 +75,7 @@ export const FocusMatchControl = React.memo<FocusMatchControlProps>(
         options={FOCUS_MATCH_OPTIONS}
         label='Focus Match'
         labelIcon={ScanEye}
-        infoTooltip='Matches the timeline view to the map view'
+        infoTooltip="Keeps the timeline's visible time window synced to whatever the map is currently panned/zoomed to"
       />
     )
   },

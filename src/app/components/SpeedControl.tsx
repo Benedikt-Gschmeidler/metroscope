@@ -1,24 +1,61 @@
 import * as React from 'react'
-import { Zap } from 'lucide-react'
+import { Zap, Info } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Slider } from '@/components/ui/slider'
 import { Badge } from '@/components/ui/badge'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
+import type { Granularity } from './TimelineControl/types'
 
 interface SpeedControlProps {
   isExpanded: boolean
   speed: number
   onSpeedChange: (value: number) => void
+  granularity: Granularity
 }
 
-export const SpeedControl = React.memo<SpeedControlProps>(({ isExpanded, speed, onSpeedChange }) => {
-  const secondsPerDay = 1 / speed
+// Playback always advances the selection day-by-day in real time (a preset
+// value of N means N days of timeline per second), regardless of which
+// granularity is on screen -- switching granularity changes how much time a
+// "day" of animation represents visually, not the underlying step. These
+// presets are just sensible starting points per granularity; the slider
+// below still goes from 0.1x to 10x either way.
+const PRESETS_BY_GRANULARITY: Record<
+  Granularity,
+  { label: string; value: number; description: string }[]
+> = {
+  day: [
+    { label: '0.1x', value: 0.1, description: 'Slower' },
+    { label: '0.25x', value: 0.25, description: 'Normal' },
+    { label: '0.5x', value: 0.5, description: 'Faster' },
+    { label: '1x', value: 1.0, description: 'Very Fast' },
+  ],
+  week: [
+    { label: '0.5x', value: 0.5, description: 'Slower' },
+    { label: '1x', value: 1.0, description: 'Normal' },
+    { label: '2x', value: 2.0, description: 'Faster' },
+    { label: '4x', value: 4.0, description: 'Very Fast' },
+  ],
+  month: [
+    { label: '1x', value: 1.0, description: 'Slower' },
+    { label: '2x', value: 2.0, description: 'Normal' },
+    { label: '5x', value: 5.0, description: 'Faster' },
+    { label: '10x', value: 10.0, description: 'Very Fast' },
+  ],
+}
 
-  const presets = [
-    { label: '0.5x', value: 0.5 },
-    { label: '1x', value: 1.0 },
-    { label: '2x', value: 2.0 },
-    { label: '4x', value: 4.0 },
-  ]
+export const SpeedControl = React.memo<SpeedControlProps>(({ isExpanded, speed, onSpeedChange, granularity }) => {
+  const presets = PRESETS_BY_GRANULARITY[granularity]
 
   const MIN_SPEED = 0.1
   const MAX_SPEED = 10
@@ -39,29 +76,11 @@ export const SpeedControl = React.memo<SpeedControlProps>(({ isExpanded, speed, 
 
   const sliderValue = getSliderValue(speed)
 
-  const [minimizedInput, setMinimizedInput] = React.useState(
-      secondsPerDay < 0.1 ? secondsPerDay.toFixed(2) : secondsPerDay.toFixed(1)
+  const closestPreset = presets.reduce(
+    (closest, p) =>
+      Math.abs(speed - p.value) < Math.abs(speed - closest.value) ? p : closest,
+    presets[0],
   )
-  const [isFocused, setIsFocused] = React.useState(false)
-  
-  React.useEffect(() => {
-     if (isFocused) return
-     setMinimizedInput(secondsPerDay < 0.1 ? secondsPerDay.toFixed(2) : secondsPerDay.toFixed(1))
-  }, [secondsPerDay, isFocused])
-
-  const handleMinimizedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setMinimizedInput(e.target.value)
-  }
-
-  const handleBlur = () => {
-      setIsFocused(false)
-      const val = parseFloat(minimizedInput)
-      if (!isNaN(val) && val > 0) {
-          onSpeedChange(1 / val)
-      } else {
-          setMinimizedInput(secondsPerDay < 0.1 ? secondsPerDay.toFixed(2) : secondsPerDay.toFixed(1))
-      }
-  }
 
   return (
     <div
@@ -81,8 +100,21 @@ export const SpeedControl = React.memo<SpeedControlProps>(({ isExpanded, speed, 
           <>
             Animation Speed{' '}
             <span className='font-normal text-muted-foreground/70'>
-              ({secondsPerDay < 0.1 ? secondsPerDay.toFixed(2) : secondsPerDay.toFixed(1)}s/day)
+              ({speed.toFixed(1)}x)
             </span>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info className='h-3 w-3 text-muted-foreground/70 cursor-default' />
+              </TooltipTrigger>
+              <TooltipContent>
+                Playback always steps through the data day-by-day in real
+                time — a speed of Nx advances N days of timeline per second
+                of real time, regardless of whether you&apos;re viewing by
+                day, week, or month. These presets are just sensible
+                starting points for the current granularity; you can still
+                speed up or slow down freely.
+              </TooltipContent>
+            </Tooltip>
           </>
         ) : (
           'Speed'
@@ -94,20 +126,24 @@ export const SpeedControl = React.memo<SpeedControlProps>(({ isExpanded, speed, 
           isExpanded ? "h-auto min-h-[5rem]" : "h-9" 
       )}>
          {!isExpanded && (
-            <div className='relative w-full h-full'>
-                <input
-                    type="number"
-                    min="0.1"
-                    step="0.1"
-                    className="w-full h-full bg-muted/50 border border-border/50 rounded-lg text-xs font-medium text-center focus:outline-none focus:ring-1 focus:ring-primary px-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                    value={minimizedInput}
-                    onChange={handleMinimizedChange}
-                    onFocus={() => setIsFocused(true)}
-                    onBlur={handleBlur}
-                    onKeyDown={(e) => e.stopPropagation()} 
-                />
-                 <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-muted-foreground pointer-events-none">s</span>
-            </div>
+            <Select
+                value={String(closestPreset.value)}
+                onValueChange={(v) => onSpeedChange(parseFloat(v))}
+            >
+                <SelectTrigger className='w-full h-9 text-xs'>
+                    <div className='flex items-center gap-2'>
+                        <Zap className='h-3.5 w-3.5' />
+                        <SelectValue>{closestPreset.label}</SelectValue>
+                    </div>
+                </SelectTrigger>
+                <SelectContent>
+                    {presets.map((preset) => (
+                        <SelectItem key={preset.label} value={String(preset.value)}>
+                            {preset.label} — {preset.description}
+                        </SelectItem>
+                    ))}
+                </SelectContent>
+            </Select>
          )}
 
          {isExpanded && (

@@ -503,10 +503,10 @@ function MetroLineUnified({
         const p0 = points[i]
         const p1 = points[i + 1]
         result.push(p0)
-        if (p0.type === 'end' && p1.type === 'start') {
-          const interpolated = interpolatePoints(p0, p1, 10)
-          result.push(...interpolated.slice(1, -1))
-        }
+        // Station-to-station joins (end -> start) are left as a direct pair;
+        // generateTaperedPath rounds them by curving each edge independently,
+        // since offsetting one shared centerline curve self-intersects on the
+        // inner edge whenever the band is wider than the turn is tight.
         if (p0.type === 'mid') {
           result.splice(result.length - 1, 1)
           const pMinus1 = points[i - 1]
@@ -551,24 +551,108 @@ function MetroLineUnified({
       const leftEdge: Position[] = []
       const rightEdge: Position[] = []
 
+      const edgeOffset = (point: PathPoint) => {
+        const halfWidth = widthSelector(point) / 2
+        const normal = { x: -point.tangent.y, y: point.tangent.x }
+        return {
+          halfWidth,
+          normal,
+          left: {
+            x: point.position.x + normal.x * halfWidth,
+            y: point.position.y + normal.y * halfWidth,
+          },
+          right: {
+            x: point.position.x - normal.x * halfWidth,
+            y: point.position.y - normal.y * halfWidth,
+          },
+        }
+      }
+
+      // Sample a cubic bezier between two already-offset edge points, using
+      // the same tangents as the centerline join. Each edge curves on its
+      // own between its true corner points instead of being derived by
+      // offsetting a shared centerline sample-by-sample -- the latter folds
+      // on the inner edge whenever the band is wider than the turn is tight.
+      const sampleEdgeBezier = (
+        a: Position,
+        aTangent: Position,
+        b: Position,
+        bTangent: Position,
+        numSamples: number,
+      ): Position[] => {
+        const chord = Math.sqrt((b.x - a.x) ** 2 + (b.y - a.y) ** 2) || 1
+        const scale = chord / 3
+        const cp1 = { x: a.x - aTangent.x * scale, y: a.y - aTangent.y * scale }
+        const cp2 = { x: b.x + bTangent.x * scale, y: b.y + bTangent.y * scale }
+        const samples: Position[] = []
+        for (let i = 0; i <= numSamples; i++) {
+          const t = i / numSamples
+          const mt = 1 - t
+          const mt2 = mt * mt
+          const t2 = t * t
+          samples.push({
+            x:
+              mt2 * mt * a.x +
+              3 * mt2 * t * cp1.x +
+              3 * mt * t2 * cp2.x +
+              t2 * t * b.x,
+            y:
+              mt2 * mt * a.y +
+              3 * mt2 * t * cp1.y +
+              3 * mt * t2 * cp2.y +
+              t2 * t * b.y,
+          })
+        }
+        return samples
+      }
+
       for (let i = 0; i < pathPoints.length; i++) {
         const point = pathPoints[i]
-        const halfWidth = widthSelector(point) / 2
-        const normal = {
-          x: -point.tangent.y,
-          y: point.tangent.x,
+        const isFirst = i === 0
+        const isLast = i === pathPoints.length - 1
+        const nextPoint = pathPoints[i + 1]
+
+        if (
+          !isFirst &&
+          !isLast &&
+          point.type === 'end' &&
+          nextPoint?.type === 'start'
+        ) {
+          const from = edgeOffset(point)
+          const to = edgeOffset(nextPoint)
+          leftEdge.push(
+            ...sampleEdgeBezier(
+              from.left,
+              point.tangent,
+              to.left,
+              nextPoint.tangent,
+              10,
+            ),
+          )
+          rightEdge.push(
+            ...sampleEdgeBezier(
+              from.right,
+              point.tangent,
+              to.right,
+              nextPoint.tangent,
+              10,
+            ),
+          )
+          i++ // nextPoint's edge points are already included above
+          continue
         }
 
+        const { halfWidth, normal } = edgeOffset(point)
         let pos = point.position
 
-        if (i === 0) {
+        if (isFirst) {
           const extension = (point.offset ?? STATION_CARDINAL_OFFSET) * 2
           pos = {
             x: pos.x + point.tangent.x * extension,
             y: pos.y + point.tangent.y * extension,
           }
         }
-        if (i === pathPoints.length - 1) {
+        if (isLast) {
           const extension = (point.offset ?? STATION_CARDINAL_OFFSET) * 2
           pos = {
             x: pos.x - point.tangent.x * extension,
