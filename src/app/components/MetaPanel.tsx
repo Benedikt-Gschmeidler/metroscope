@@ -255,6 +255,24 @@ export default function MetaPanel({
                 </div>
               </div>
 
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className='flex items-center justify-between text-[10px] text-muted-foreground bg-muted/30 rounded-md px-2 py-1.5 cursor-default'>
+                    <span>Snap delay legend to cursor</span>
+                    <div className='flex items-center gap-1 shrink-0'>
+                      <Kbd>Ctrl</Kbd>
+                      <span>+</span>
+                      <span>Move</span>
+                    </div>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  Hold Ctrl and move your mouse over the map to have the
+                  delay legend follow your cursor, so you can read it without
+                  looking away from what you&apos;re hovering.
+                </TooltipContent>
+              </Tooltip>
+
               <div className='space-y-4'>
                 <div className='space-y-3'>
                   <div className='flex justify-between items-center text-xs'>
