@@ -454,6 +454,7 @@ export function TimelineControl({
               isExpanded={isExpanded}
               speed={speed}
               onSpeedChange={onSpeedChange}
+              granularity={granularity}
             />
           </div>
         </div>
